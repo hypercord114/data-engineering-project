@@ -1,6 +1,0 @@
-2026-05-21 21:51:44,120 [INFO] --- Launching Morning ETL Job Execution Sequence for 2026-05-21 ---
-2026-05-21 21:51:44,120 [INFO] Fetching hourly forecast parameters from Open-Meteo...
-2026-05-21 21:51:44,610 [INFO] API Payload Ingested. Server compute time: 0.05ms. Timezone offset: -14400s.
-2026-05-21 21:51:44,630 [INFO] Shift Summary Calculated: Temp: 56.3F, Wind: 37.1 deg (NE), Humidity: 53.1%
-2026-05-21 21:51:44,645 [WARNING] Database write skipped. A forecast record for 2026-05-21 already exists in daily_shift_forecasts.
-2026-05-21 21:51:44,651 [INFO] --- Pipeline Execution Sequence Successfully Finalized for 2026-05-21 ---
