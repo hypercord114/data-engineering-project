@@ -30,7 +30,7 @@ def get_cardinal_points(wind_degrees):
     return directions[idx], directions[(idx + 8) % 16]
 
 def save_forecast_to_duckdb(today_date, avg_wind, avg_temp, avg_humid, upwind, downwind):
-    """Handles DuckDB local database updates and logs skips versus writes."""
+    """Handles DuckDB local database updates safely and accurately logs results."""
     connection = duckdb.connect("environmental_data.db")
     try:
         connection.execute("""
@@ -45,14 +45,20 @@ def save_forecast_to_duckdb(today_date, avg_wind, avg_temp, avg_humid, upwind, d
             );
         """)
         
+        # CHANGED: Added "RETURNING forecast_date" to explicitly verify insertions
         cursor = connection.execute("""
             INSERT INTO daily_shift_forecasts 
                 (forecast_date, predicted_avg_wind_deg, predicted_avg_temp_f, predicted_avg_humidity_pct, upwind_cardinal, downwind_cardinal)
             VALUES (?, ?, ?, ?, ?, ?)
-            ON CONFLICT (forecast_date) DO NOTHING;
+            ON CONFLICT (forecast_date) DO NOTHING
+            RETURNING forecast_date;
         """, (today_date, avg_wind, avg_temp, avg_humid, upwind, downwind))
         
-        if cursor.rowcount > 0:
+        # Fetch the result out of the cursor
+        inserted_rows = cursor.fetchall()
+        
+        # If the list is not empty, an insert definitely happened!
+        if len(inserted_rows) > 0:
             logging.info("Successfully recorded new forecast data profile to local DuckDB file.")
         else:
             logging.warning(f"Database write skipped. A forecast record for {today_date} already exists in daily_shift_forecasts.")
