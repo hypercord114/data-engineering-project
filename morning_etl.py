@@ -1,6 +1,6 @@
 import math
 import sys
-import logging  # Added to support unified stream/file logging
+import logging  
 import duckdb
 import requests
 from datetime import datetime
@@ -9,12 +9,10 @@ from datetime import datetime
 LATITUDE = "42.8864"
 LONGITUDE = "-78.8784"
 
-# 1. API Endpoint URLs (FIXED: Added &models=gfs_seamless to prevent 404)
+# 1. Core API Endpoint URL (Contains both payload data and metadata attributes)
 FORECAST_URL = f"https://api.open-meteo.com/v1/forecast?latitude={LATITUDE}&longitude={LONGITUDE}&hourly=wind_direction_10m,temperature_2m,relative_humidity_2m&temperature_unit=fahrenheit&forecast_days=1&timezone=auto"
-METADATA_URL = f"https://api.open-meteo.com/v1/model-updates?latitude={LATITUDE}&longitude={LONGITUDE}&models=gfs_seamless"
 
 # --- LOGGING CONFIGURATION ---
-# Broadcasts messages simultaneously to terminal and morning_pipeline.log file
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
@@ -47,7 +45,6 @@ def save_forecast_to_duckdb(today_date, avg_wind, avg_temp, avg_humid, upwind, d
             );
         """)
         
-        # Capture the cursor response to evaluate affected rows
         cursor = connection.execute("""
             INSERT INTO daily_shift_forecasts 
                 (forecast_date, predicted_avg_wind_deg, predicted_avg_temp_f, predicted_avg_humidity_pct, upwind_cardinal, downwind_cardinal)
@@ -55,7 +52,6 @@ def save_forecast_to_duckdb(today_date, avg_wind, avg_temp, avg_humid, upwind, d
             ON CONFLICT (forecast_date) DO NOTHING;
         """, (today_date, avg_wind, avg_temp, avg_humid, upwind, downwind))
         
-        # Evaluates whether the database engine actually inserted a row or skipped it
         if cursor.rowcount > 0:
             logging.info("Successfully recorded new forecast data profile to local DuckDB file.")
         else:
@@ -72,15 +68,18 @@ def run_morning_etl():
     logging.info(f"--- Launching Morning ETL Job Execution Sequence for {today_date} ---")
     
     try:
-        logging.info("Checking Open-Meteo upstream model update metadata...")
-        meta_response = requests.get(METADATA_URL, timeout=15)
-        meta_response.raise_for_status() # Throws HTTPError if code is not 200
-        logging.info(f"Upstream data model verified. Last updated status: {meta_response.json().get('model_updates', {})}")
-
-        logging.info("Fetching hourly forecast parameters...")
+        logging.info("Fetching hourly forecast parameters from Open-Meteo...")
         res = requests.get(FORECAST_URL, timeout=15)
         res.raise_for_status()
-        hourly = res.json()["hourly"]
+        
+        response_data = res.json()
+        
+        # Safe extraction of API metadata parameters directly from the response payload
+        generation_time = response_data.get("generationtime_ms", "N/A")
+        utc_offset = response_data.get("utc_offset_seconds", 0)
+        logging.info(f"API Payload Ingested. Server compute time: {generation_time:.2f}ms. Timezone offset: {utc_offset}s.")
+        
+        hourly = response_data["hourly"]
         
     except requests.exceptions.RequestException as net_err:
         logging.error(f"PIPELINE CRITICAL API FAILURE: Ingestion sequence aborted. Network/HTTP Exception details: {net_err}")
