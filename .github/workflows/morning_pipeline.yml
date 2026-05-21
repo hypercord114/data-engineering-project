@@ -1,0 +1,45 @@
+name: Morning Shift Forecast ETL
+on:
+  schedule:
+    # 8:00 AM UTC maps to exactly 4:00 AM EST (Monday - Friday)
+    - cron: '0 8 * * 1-5'
+  workflow_dispatch: # Allows you to trigger the job manually from the GitHub UI for testing
+
+jobs:
+  run-etl:
+    runs-on: ubuntu-latest
+    
+    # Grant permissions to allow the automated GitHub token to write data back to your repo
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip' # Speeds up future runs by caching dependencies
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Morning ETL Script
+        run: python morning_etl.py
+
+      # CRITICAL STEP: Commit and push the database file back to your GitHub repository
+      - name: Commit and Push Database Update
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          # Stage the DuckDB file
+          git add environmental_data.db
+          
+          # Commit only if data changed, || true prevents a pipeline crash if the data is identical
+          git commit -m "Automated database update: $(date -u +'%Y-%m-%d %H:%M:%S') UTC" || true
+          git push
