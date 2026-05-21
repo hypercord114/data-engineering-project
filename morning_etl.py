@@ -1,6 +1,6 @@
 import math
 import sys
-import logging
+import logging  # Added to support unified stream/file logging
 import duckdb
 import requests
 from datetime import datetime
@@ -9,11 +9,12 @@ from datetime import datetime
 LATITUDE = "42.8864"
 LONGITUDE = "-78.8784"
 
-# 1. API Endpoint URLs
+# 1. API Endpoint URLs (FIXED: Added &models=gfs_seamless to prevent 404)
 FORECAST_URL = f"https://api.open-meteo.com/v1/forecast?latitude={LATITUDE}&longitude={LONGITUDE}&hourly=wind_direction_10m,temperature_2m,relative_humidity_2m&temperature_unit=fahrenheit&forecast_days=1&timezone=auto"
-METADATA_URL = f"https://api.open-meteo.com/v1/model-updates?latitude={LATITUDE}&longitude={LONGITUDE}"
+METADATA_URL = f"https://api.open-meteo.com/v1/model-updates?latitude={LATITUDE}&longitude={LONGITUDE}&models=gfs_seamless"
 
-# Directs entries simultaneously to terminal screens and the pipeline.log file
+# --- LOGGING CONFIGURATION ---
+# Broadcasts messages simultaneously to terminal and morning_pipeline.log file
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
@@ -70,11 +71,10 @@ def run_morning_etl():
     today_date = datetime.now().strftime("%Y-%m-%d")
     logging.info(f"--- Launching Morning ETL Job Execution Sequence for {today_date} ---")
     
-    # --- FIXED: Added robust try-except error catching with request timeouts ---
     try:
         logging.info("Checking Open-Meteo upstream model update metadata...")
         meta_response = requests.get(METADATA_URL, timeout=15)
-        meta_response.raise_for_status()
+        meta_response.raise_for_status() # Throws HTTPError if code is not 200
         logging.info(f"Upstream data model verified. Last updated status: {meta_response.json().get('model_updates', {})}")
 
         logging.info("Fetching hourly forecast parameters...")
@@ -103,7 +103,7 @@ def run_morning_etl():
             shift_humidity.append(humid)
 
     if not shift_temp:
-        logging.error("PIPELINE PROCESSING FAILURE: No valid time-series observations extracted within the shift range.")
+        logging.error("PIPELINE PROCESSING FAILURE: No valid observations extracted within the shift range.")
         sys.exit(1)
 
     # 3. Process metrics using circular mean for wind direction
@@ -131,7 +131,6 @@ def run_morning_etl():
 
     upwind, downwind = get_cardinal_points(avg_wind)
     
-    # FIXED: Converted text display formatting from raw print to structured logger
     logging.info(f"Shift Summary Calculated: Temp: {avg_temp:.1f}F, Wind: {avg_wind:.1f} deg ({upwind}), Humidity: {avg_humid:.1f}%")
 
     try:
