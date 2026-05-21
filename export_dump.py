@@ -5,12 +5,22 @@ def dump_database_to_txt():
     output_file = "database_dump.txt"
     
     print(f"Opening {db_file}...")
-    # Connect to the database file in read-only mode to prevent any accidental edits
     connection = duckdb.connect(db_file, read_only=True)
     
     try:
-        # Fetch all columns and rows from the shift forecast table
-        query = "SELECT * FROM daily_shift_forecasts ORDER BY forecast_date DESC;"
+        # CHANGED: We explicitly select and convert 'created_at' from UTC to New York timezone
+        query = """
+            SELECT 
+                forecast_date,
+                predicted_avg_wind_deg,
+                predicted_avg_temp_f,
+                predicted_avg_humidity_pct,
+                upwind_cardinal,
+                downwind_cardinal,
+                created_at AT TIME ZONE 'UTC' AT TIME ZONE 'America/New_York' AS created_at
+            FROM daily_shift_forecasts 
+            ORDER BY forecast_date DESC;
+        """
         result = connection.execute(query).fetchall()
         
         # Get column names so our text file has clear headers
@@ -18,7 +28,6 @@ def dump_database_to_txt():
         
         print(f"Writing contents to {output_file}...")
         with open(output_file, "w", encoding="utf-8") as f:
-            # Write a clean title banner
             f.write("==================================================\n")
             f.write("      ENVIRONMENTAL DATABASE RECORD DUMP         \n")
             f.write("==================================================\n\n")
@@ -26,15 +35,13 @@ def dump_database_to_txt():
             if not result:
                 f.write("The database table 'daily_shift_forecasts' is currently empty.\n")
             else:
-                # Loop through each record and print them out clearly line-by-line
                 for row in result:
                     f.write(f"--- Record Date: {row[0]} ---\n")
                     for header, value in zip(headers, row):
-                        # Skip re-printing the date inside the block for cleaner reading
                         if header == "forecast_date":
                             continue
                         f.write(f"  {header}: {value}\n")
-                    f.write("\n") # Add a spacing line between records
+                    f.write("\n")
                     
         print("Export complete! Open 'database_dump.txt' to view your records.")
         
