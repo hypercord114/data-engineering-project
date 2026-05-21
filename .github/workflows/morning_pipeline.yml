@@ -42,7 +42,7 @@ jobs:
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
           # Stage both the database and the log tracking file
-          git add environmental_data.db pipeline.log
+          git add environmental_data.db morning_pipeline.log
           
           git commit -m "Automated database & log update: $(date -u +'%Y-%m-%d %H:%M:%S') UTC" || true
           git push
