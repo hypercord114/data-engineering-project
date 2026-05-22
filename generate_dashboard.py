@@ -87,7 +87,7 @@ def build_dashboard():
     )
 
     fig.update_yaxes(title_text="TVOC Ingestion (ppb)", color="#34d399", gridcolor="#334155", secondary_y=False)
-    fig.update_yaxes(title_text="Wind Angle (Degrees)", color="#38bdf8", min=0, max=360, range=[0,360], secondary_y=True)
+    fig.update_yaxes(title_text="Wind Angle (Degrees)", color="#38bdf8", range=[0, 360], secondary_y=True)
 
     # 4. Generate the dashboard static HTML payload string
     graph_html = fig.to_html(full_html=False, include_plotlyjs='cdn')
