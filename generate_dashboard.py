@@ -1,0 +1,117 @@
+import os
+import duckdb
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+def build_dashboard():
+    db_file = "environmental_data.db"
+    output_html = "index.html"
+    
+    # 1. Fetch the latest forecast details from DuckDB
+    connection = duckdb.connect(db_file, read_only=True)
+    try:
+        query = """
+            SELECT 
+                forecast_date, 
+                predicted_avg_temp_f, 
+                predicted_avg_wind_deg, 
+                predicted_avg_humidity_pct,
+                upwind_cardinal, 
+                downwind_cardinal
+            FROM daily_shift_forecasts 
+            ORDER BY forecast_date DESC 
+            LIMIT 1;
+        """
+        row = connection.execute(query).fetchone()
+    finally:
+        connection.close()
+
+    if not row:
+        print("Database empty. Generation skipped.")
+        return
+
+    f_date, temp, wind_deg, humid, upwind, downwind = row
+
+    # 2. INTRADAY FIELD DATA (Placeholder arrays for afternoon update)
+    actual_times = ["07:00", "09:00", "11:00", "13:00", "15:00", "17:00"]
+    tvoc_values = [110, 135, 290, 240, 180, 125]
+    observed_wind = [35, 38, 42, 36, 32, 34]
+
+    # 3. Create interactive Dual-Axis Graph using Plotly
+    fig = make_subplots(specs=[[{"secondary_y": True}]])
+
+    # Add TVOC Line (Left Axis)
+    fig.add_trace(
+        go.Scatter(x=actual_times, y=tvoc_values, name="TVOC Levels (ppb)",
+                   line=dict(color="#34d399", width=3), mode='lines+markers'),
+        secondary_y=False
+    )
+
+    # Add Observed Wind Line (Right Axis)
+    fig.add_trace(
+        go.Scatter(x=actual_times, y=observed_wind, name="Observed Wind (°)",
+                   line=dict(color="#38bdf8", width=2, dash='dash'), mode='lines+markers'),
+        secondary_y=True
+    )
+
+    # Apply modern Dark Mode layout configurations
+    fig.update_layout(
+        title=f"Intraday Operations Metrics — Shift Date: {f_date}",
+        title_font=dict(size=18, color="#e2e8f0"),
+        paper_bgcolor="#1e293b",
+        plot_bgcolor="#0f172a",
+        legend=dict(font=dict(color="#f1f5f9")),
+        xaxis=dict(gridcolor="#334155", tickfont=dict(color="#94a3b8")),
+        margin=dict(l=40, r=40, t=60, b=40)
+    )
+
+    fig.update_yaxes(title_text="TVOC Ingestion (ppb)", color="#34d399", gridcolor="#334155", secondary_y=False)
+    fig.update_yaxes(title_text="Wind Angle (Degrees)", color="#38bdf8", min=0, max=360, range=[0,360], secondary_y=True)
+
+    # 4. Generate the dashboard static HTML payload string
+    graph_html = fig.to_html(full_html=False, include_plotlyjs='cdn')
+
+    dashboard_template = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Operations Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 p-8">
+    <div class="max-w-5xl mx-auto">
+        <header class="border-b border-slate-800 pb-4 mb-8">
+            <h1 class="text-3xl font-bold text-emerald-400">Shift Environmental Dashboard</h1>
+            <p class="text-slate-400 text-sm">Target Tracking Date: <span class="text-slate-200 font-medium">{f_date}</span></p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+                <span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Predicted Shift Temp</span>
+                <div class="text-3xl font-bold mt-1 text-amber-400">{temp}°F</div>
+            </div>
+            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+                <span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Predicted Wind Path</span>
+                <div class="text-3xl font-bold mt-1 text-sky-400">{wind_deg}° ({upwind})</div>
+                <div class="text-xs text-slate-500 mt-0.5">Downwind Exposure Path: {downwind}</div>
+            </div>
+            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800">
+                <span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Avg Shift Humidity</span>
+                <div class="text-3xl font-bold mt-1 text-indigo-400">{humid}%</div>
+            </div>
+        </div>
+
+        <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-xl">
+            {graph_html}
+        </div>
+    </div>
+</body>
+</html>
+"""
+
+    with open(output_html, "w", encoding="utf-8") as f:
+        f.write(dashboard_template)
+    print("Dashboard deployment payload successfully generated.")
+
+if __name__ == "__main__":
+    build_dashboard()
