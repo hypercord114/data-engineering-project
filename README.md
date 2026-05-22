@@ -22,5 +22,6 @@ Project should be demonstrative of ability to develop ETL/ELT pipelines, manage 
 
 If I can get this working properly, I will probably attempt another project incorporating Spark and ML algorithms where more statistics are used, such as regression/trend analysis, etc.
 
-2026-05-22; looks like there are no free, serverless, Airflow services online.  Dang.  I think that was the most interesting part of the Data Engineering stuff I've learned so far, setting up DAGs.  Oh well...  Will need to use GitHub Actions alone then.  Well, I tried to demonstrate that I understand the need for Airflow.
 May also attempt to utilize a free online Dashboard module, instead of simply generating HTML, and may attempt to generate a pre-shift email with predicted measurements in it.  In the case of use of an online Dashboard module, will attempt to store data as parquet file on service outside of Github.
+
+2026-05-22; looks like there are no free, serverless, Airflow services online.  Dang.  I think that was the most interesting part of the Data Engineering stuff I've learned so far, setting up DAGs.  Oh well...  Will need to use GitHub Actions alone then.  Well, I tried to demonstrate that I understand the need for Airflow.
