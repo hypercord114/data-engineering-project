@@ -5,6 +5,7 @@ import sys
 import logging  
 import duckdb
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 # --- LOGGING CONFIGURATION ---
 logging.basicConfig(
