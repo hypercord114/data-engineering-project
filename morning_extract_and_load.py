@@ -3,6 +3,7 @@ import sys
 import logging
 import requests
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 # Pipeline Target: Buffalo, NY coordinates
 LATITUDE = "42.8864"
