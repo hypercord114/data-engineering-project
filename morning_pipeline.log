@@ -1,0 +1,9 @@
+2026-05-22 00:04:08,824 [INFO] --- Launching Ingestion Phase for 2026-05-22 ---
+2026-05-22 00:04:08,824 [INFO] Extracting raw weather payload data from Open-Meteo API...
+2026-05-22 00:04:09,665 [INFO] Loading stage complete! Raw payload file successfully saved to: raw_json/forecast_2026-05-22.json
+2026-05-22 00:04:09,750 [INFO] --- Launching Transform Phase for 2026-05-22 ---
+2026-05-22 00:04:09,750 [INFO] Reading staged raw JSON payload data from local path: raw_json/forecast_2026-05-22.json
+2026-05-22 00:04:09,751 [INFO] Local JSON parsed. Source server compute time: 50.228118896484375ms. Timezone offset: -14400s.
+2026-05-22 00:04:09,797 [INFO] Calculated Metrics from Staged Storage: Temp: 56.4F, Wind: 37.2 deg (NE), Humidity: 53.0%
+2026-05-22 00:04:09,813 [INFO] Successfully recorded new forecast data profile to local DuckDB file.
+2026-05-22 00:04:09,819 [INFO] --- ELT Transformation Sequence Finalized for 2026-05-22 ---
