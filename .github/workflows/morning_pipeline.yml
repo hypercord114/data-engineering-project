@@ -1,7 +1,7 @@
-name: Morning Shift Forecast ETL
+name: Morning Shift Forecast ELT
 on:
   schedule:
-    # 8:00 AM UTC maps to exactly 4:00 AM EST (Monday - Friday)
+    # 8:00 AM UTC maps to exactly 4:00 AM EST / 5:00 AM EDT (Monday - Friday)
     - cron: '0 8 * * 1-5'
   workflow_dispatch: # Allows you to trigger the job manually from the GitHub UI for testing
 
@@ -10,7 +10,7 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
-  run-etl:
+  run-elt:
     runs-on: ubuntu-latest
     
     # Grant permissions to allow the automated GitHub token to write data back to your repo
@@ -32,17 +32,23 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Morning ETL Script
+      # Step 1: Run the Extraction & Loading Phase (EL)
+      - name: Extract Raw JSON Weather Payload
+        run: python morning_extract_and_load.py
+
+      # Step 2: Run the Processing & Transformation Phase (T)
+      - name: Transform and Populate Target Tables
         run: python morning_etl.py
 
-      # FIXED: Cleaned up the indentation so GitHub can parse the script correctly
-      - name: Commit and Push Database Update
+      # Step 3: Track and commit the JSON data lake archive, databases, and logs safely back into GitHub
+      - name: Commit and Push Storage Layers
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
-          # Stage both the database and the log tracking file
-          git add environmental_data.db morning_pipeline.log
+          # Stage the database, the new raw_json storage folder, and both log outputs
+          git add environmental_data.db morning_pipeline.log raw_json/
           
-          git commit -m "Automated database & log update: $(date -u +'%Y-%m-%d %H:%M:%S') UTC" || true
+          # Save snapshot with a timestamp marker or pass silently if no dataset modifications exist
+          git commit -m "Automated ELT Run: Data Lake & DB Update $(date -u +'%Y-%m-%d %H:%M:%S') UTC" || true
           git push
