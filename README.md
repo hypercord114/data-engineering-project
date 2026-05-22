@@ -25,3 +25,9 @@ If I can get this working properly, I will probably attempt another project inco
 May also attempt to utilize a free online Dashboard module, instead of simply generating HTML, and may attempt to generate a pre-shift email with predicted measurements in it.  In the case of use of an online Dashboard module, will attempt to store data as parquet file on service outside of Github.
 
 2026-05-22; looks like there are no free, serverless, Airflow services online.  Dang.  I think that was the most interesting part of the Data Engineering stuff I've learned so far, setting up DAGs.  Oh well...  Will need to use GitHub Actions alone then.  Well, I tried to demonstrate that I understand the need for Airflow.
+
+I've started setting up Kafka service and it seems to work so far.  May go back and store the JSON files collected during the ELT step in a PSQL database instead of just staging them, just to demonstrate I can do that.
+
+Still need to flesh out the star schema for the set of tables holding all the TVOC measurements for the day.
+
+This environmental related project may turn noses.  Should probably do something financial related so that it will pique more interest...  This was just the first thing that came to my mind.
