@@ -1,13 +1,33 @@
 import os
+import sys
+import logging
 import duckdb
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+
+# --- LOGGING CONFIGURATION ---
+# Appends logs to the central pipeline log file rather than separate ones
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler("morning_pipeline.log", encoding="utf-8"),
+        logging.StreamHandler(sys.stdout)
+    ]
+)
 
 def build_dashboard():
     db_file = "environmental_data.db"
     output_html = "index.html"
     
+    logging.info("--- Launching Dashboard Regeneration Step ---")
+    
+    if not os.path.exists(db_file):
+        logging.error(f"DASHBOARD FAILURE: Database file '{db_file}' not found. Aborting step.")
+        sys.exit(1)
+
     # 1. Fetch the latest forecast details from DuckDB
+    logging.info(f"Querying latest environmental profile from {db_file}...")
     connection = duckdb.connect(db_file, read_only=True)
     try:
         query = """
@@ -23,11 +43,14 @@ def build_dashboard():
             LIMIT 1;
         """
         row = connection.execute(query).fetchone()
+    except Exception as query_err:
+        logging.error(f"DASHBOARD FAILURE: Could not query database. Error: {query_err}")
+        sys.exit(1)
     finally:
         connection.close()
 
     if not row:
-        print("Database empty. Generation skipped.")
+        logging.warning("Database table empty. Dashboard generation skipped.")
         return
 
     f_date, temp, wind_deg, humid, upwind, downwind = row
@@ -38,23 +61,21 @@ def build_dashboard():
     observed_wind = [35, 38, 42, 36, 32, 34]
 
     # 3. Create interactive Dual-Axis Graph using Plotly
+    logging.info("Assembling interactive multi-axis Plotly telemetry graph...")
     fig = make_subplots(specs=[[{"secondary_y": True}]])
 
-    # Add TVOC Line (Left Axis)
     fig.add_trace(
         go.Scatter(x=actual_times, y=tvoc_values, name="TVOC Levels (ppb)",
                    line=dict(color="#34d399", width=3), mode='lines+markers'),
         secondary_y=False
     )
 
-    # Add Observed Wind Line (Right Axis)
     fig.add_trace(
         go.Scatter(x=actual_times, y=observed_wind, name="Observed Wind (°)",
                    line=dict(color="#38bdf8", width=2, dash='dash'), mode='lines+markers'),
         secondary_y=True
     )
 
-    # Apply modern Dark Mode layout configurations
     fig.update_layout(
         title=f"Intraday Operations Metrics — Shift Date: {f_date}",
         title_font=dict(size=18, color="#e2e8f0"),
@@ -109,9 +130,14 @@ def build_dashboard():
 </html>
 """
 
-    with open(output_html, "w", encoding="utf-8") as f:
-        f.write(dashboard_template)
-    print("Dashboard deployment payload successfully generated.")
+    try:
+        with open(output_html, "w", encoding="utf-8") as f:
+            f.write(dashboard_template)
+        logging.info(f"Dashboard HTML content successfully bound and written to: {output_html}")
+        logging.info("--- Dashboard Generation Phase Finalized ---")
+    except Exception as file_err:
+        logging.error(f"DASHBOARD FAILURE: Could not compile file template out to disk. Error: {file_err}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     build_dashboard()
