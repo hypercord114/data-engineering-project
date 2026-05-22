@@ -18,7 +18,7 @@ YAML file will be used to trigger another set of scripts at 17:00 to perform fin
 
 May attempt to integrate a free Airflow service in order to collect new weather API's when they are published and then weight the monitoring data according to the observed wind direction for the previous 3 hours, simulating real spikes in measurements at the downwind location.
 
-May also attempt to utilize a free online Dashboard module, instead of simply generating HTMl, and may attempt to generate a pre-shift email with predicted measurements in it.  In the case of use of an online Dashboard module, will attempt to store data as parquet file on service outside of Github.
+May also attempt to utilize a free online Dashboard module, instead of simply generating HTML, and may attempt to generate a pre-shift email with predicted measurements in it.  In the case of use of an online Dashboard module, will attempt to store data as parquet file on service outside of Github.
 
 Project should be demonstrative of ability to develop ETL/ELT pipelines, manage MySQL database, utilize Kafka, utilize Airflow, and automate publication of data to a dashboard.
 
