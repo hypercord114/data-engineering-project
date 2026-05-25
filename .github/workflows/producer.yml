@@ -49,7 +49,7 @@ jobs:
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         
         # Stage the new or updated log file
-        git add kafka_pipeline.log
+        git add pipeline-logs/kafka_pipeline.log
         
         # Commit the log file with an updated timestamp
         git commit -m "Automated Producer Log Update: $(date -u +'%Y-%m-%d %H:%M:%S') UTC" || true
