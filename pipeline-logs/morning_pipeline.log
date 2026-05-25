@@ -1,0 +1,12 @@
+2026-05-25 21:07:19,114 [INFO] --- Launching Ingestion Phase for 2026-05-25 ---
+2026-05-25 21:07:19,114 [INFO] Extracting raw weather payload data from Open-Meteo API...
+2026-05-25 21:07:19,511 [INFO] Loading stage complete! Raw payload file successfully saved to: raw_json/forecast_2026-05-25.json
+2026-05-25 21:07:19,511 [WARNING] Skipping DB Load: POSTGRES_DB_URI environment variable is missing.
+2026-05-25 21:07:19,511 [INFO] Pipeline Execution Success: Raw payload archived to GitHub and flat arrays committed to PostgreSQL database.
+2026-05-25 21:07:19,620 [INFO] --- Launching Transform Phase for 2026-05-25 ---
+2026-05-25 21:07:19,620 [INFO] Connecting to cloud Neon PostgreSQL database instance to read metrics for 2026-05-25...
+2026-05-25 21:07:20,497 [INFO] Calculated Metrics from Staged JSONB Document: Temp: 59.3°F | Humid: 98.2% | Vector: 267.7° (W -> Downwind: E)
+2026-05-25 21:07:20,512 [INFO] Successfully stored summarized shift targets inside local DuckDB instance.
+2026-05-25 21:07:20,518 [INFO] --- Transform Stage Complete for 2026-05-25 ---
+2026-05-25 21:07:20,594 [INFO] Starting static dashboard generation (Template)...
+2026-05-25 21:07:20,602 [INFO] Dashboard template finalized. Output: index.html
