@@ -42,6 +42,7 @@ jobs:
         KAFKA_BROKER_URI: ${{ secrets.KAFKA_BROKER }}
         POSTGRES_DB_URI: ${{ secrets.POSTGRES_DB_URI }}
       run: |
+        mkdir -p pipeline-logs
         python pid_consumer.py
      
     # --- NEW STEP: Capture, stage, and save the persistent logs ---
@@ -51,7 +52,7 @@ jobs:
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         
         # Stage the consumer execution file 
-        git add consumer_pipeline.log
+        git add pipeline-logs/consumer_pipeline.log
         
         # Commit the changes, adding a timestamp. '|| true' prevents crash if there's nothing new to push
         git commit -m "Automated Telemetry Log Update: $(date -u +'%Y-%m-%d %H:%M:%S') UTC" || true
