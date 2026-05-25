@@ -9,7 +9,7 @@ from confluent_kafka import Consumer, KafkaError, KafkaException
 import psycopg2
 
 # --- CONFIGURATION ---
-KAFKA_BROKER = os.getenv("KAFKA_BROKER_URI", "kafka-de-kjn0123-kel-6978.d.aivencloud.com:10961")
+KAFKA_BROKER = os.getenv("KAFKA_BROKER_URI")
 TOPIC_NAME = "intraday_pid_telemetry"
 GROUP_ID = "buffalo-perimeter-analytics-group"
 
