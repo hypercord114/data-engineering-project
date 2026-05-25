@@ -13,14 +13,11 @@ KAFKA_BROKER = os.getenv("KAFKA_BROKER_URI")
 TOPIC_NAME = "intraday_pid_telemetry"
 GROUP_ID = "buffalo-perimeter-analytics-group"
 
-run_timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
-unique_group_id = f"{GROUP_ID}-{run_timestamp}"
-
 # Secure Cloud Postgres Connection String
 DB_CONNECTION_STRING = os.getenv("POSTGRES_DB_URI")
 
 # Max seconds to wait for a new message before deciding the topic is fully drained
-MAX_IDLE_TIMEOUT_SECONDS = 60.0
+MAX_IDLE_TIMEOUT_SECONDS = 30.0
 
 # --- LOGGING CONFIGURATION ---
 logging.basicConfig(
@@ -86,7 +83,7 @@ def run_consumer():
         'ssl.ca.location': 'ssl_credentials/ca.pem',
         'ssl.certificate.location': 'ssl_credentials/service.cert',
         'ssl.key.location': 'ssl_credentials/service.key',
-        'group.id': unique_group_id,
+        'group.id': GROUP_ID,
         'auto.offset.reset': 'earliest',  # Automatically grab back-logged burst data
         'enable.auto.commit': True
     }
