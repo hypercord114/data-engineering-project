@@ -39,6 +39,7 @@ jobs:
       env:
         KAFKA_BROKER_URI: ${{ secrets.KAFKA_BROKER }}
       run: |
+        mkdir -p pipeline-logs
         python pid_producer.py
 
     # --- NEW STEP: Save execution logs to your repository permanently ---
