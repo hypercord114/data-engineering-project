@@ -1,0 +1,4 @@
+confluent-kafka==2.4.0
+requests==2.31.0
+tzdata==2026.1
+psycopg2-binary==2.9.9
