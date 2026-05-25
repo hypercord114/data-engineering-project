@@ -32,7 +32,6 @@ jobs:
           pip install -r requirements_morning_pipeline.txt
        
       # Step 1: Run Ingestion Step (Extract & Load)
-      # --- FIXED: Directory created HERE so Step 1 script can safely initialize its log handle ---
       - name: Extract Raw JSON Weather Payload
         run: |
           mkdir -p pipeline-logs
