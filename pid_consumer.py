@@ -20,7 +20,7 @@ unique_group_id = f"{GROUP_ID}-{run_timestamp}"
 DB_CONNECTION_STRING = os.getenv("POSTGRES_DB_URI")
 
 # Max seconds to wait for a new message before deciding the topic is fully drained
-MAX_IDLE_TIMEOUT_SECONDS = 15.0
+MAX_IDLE_TIMEOUT_SECONDS = 30.0
 
 # --- LOGGING CONFIGURATION ---
 logging.basicConfig(
