@@ -4,108 +4,220 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perimeter Air Monitoring Network</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
 
     <div class="max-w-7xl mx-auto px-4 py-8">
+        
         <div class="flex flex-col md:flex-row md:items-center md:justify-between border-b border-slate-800 pb-6 mb-8">
             <div>
-                <h1 class="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-slate-400 to-slate-600 bg-clip-text text-transparent">
+                <h1 class="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-sky-400 to-indigo-500 bg-clip-text text-transparent">
                     Perimeter PID Telemetry Network
                 </h1>
-                <p class="text-sm text-slate-400 mt-1">Status: Initialized / Pending Ingestion</p>
+                <p class="text-sm text-slate-400 mt-1">Real-Time Fence-Line Micro-Climate & VOC Ingestion Node</p>
             </div>
-            <div class="bg-slate-900 border border-slate-800 px-4 py-2 rounded-lg">
-                <span class="text-xs uppercase font-semibold text-slate-500 block">Shift Date</span>
-                <span class="text-sm font-mono text-slate-400 font-bold">2026-05-25</span>
+            <div class="mt-4 md:mt-0 text-left md:text-right bg-slate-900 border border-slate-800 px-4 py-2 rounded-lg">
+                <span class="text-xs uppercase font-semibold text-slate-500 block tracking-wider">Shift Date</span>
+                <span class="text-sm font-mono text-indigo-400 font-bold">2026-05-25</span>
             </div>
         </div>
 
-        <div class="mb-4"><h2 class="text-lg font-bold text-slate-300">Morning Shift Forecast</h2></div>
+        <div class="mb-4">
+            <h2 class="text-lg font-bold text-slate-300 tracking-tight">Morning Shift Forecast</h2>
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800"><span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Predicted Shift Temp</span><div class="text-3xl font-bold mt-1 text-amber-400">59.3°F</div></div>
-            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800"><span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Predicted Wind Path</span><div class="text-3xl font-bold mt-1 text-sky-400">267.7° (W)</div><div class="text-xs text-slate-500 mt-0.5">Downwind Exposure Path: E</div></div>
-            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800"><span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Predicted Avg Humidity</span><div class="text-3xl font-bold mt-1 text-indigo-400">98.2%</div></div>
+            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 shadow-md">
+                <span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Predicted Shift Temp</span>
+                <div class="text-3xl font-bold mt-1 text-amber-400">59.3°F</div>
+            </div>
+            
+            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 shadow-md">
+                <span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Predicted Wind Path</span>
+                <div class="text-3xl font-bold mt-1 text-sky-400">267.7° (W)</div>
+                <div class="text-xs text-slate-500 mt-0.5">Downwind Exposure Path: E</div>
+            </div>
+            
+            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 shadow-md">
+                <span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Predicted Avg Humidity</span>
+                <div class="text-3xl font-bold mt-1 text-indigo-400">98.2%</div>
+            </div>
         </div>
 
-        <div class="mb-6"><h2 class="text-xl font-bold text-slate-200">Active Sensor Boundary Timelines</h2></div>
+        <div class="mb-6">
+            <h2 class="text-xl font-bold text-slate-200 tracking-tight">Active Sensor Boundary Timelines</h2>
+            <p class="text-xs text-slate-500 mt-0.5">Continuous PID micro-volt log entries mapped across active 07:00 to 17:00 core shift windows</p>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            
-            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+    
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-sm flex flex-col justify-between">
                 <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
-                    <span class="font-bold text-sm text-slate-500">Node: N</span>
+                    <span class="font-bold text-sm text-slate-200 tracking-wide">Boundary Node: N</span>
+                    <span class="w-2.5 h-2.5 rounded-full shadow-sm" style="background-color: #f87171;"></span>
                 </div>
-                <div class="relative w-full h-44 flex items-center justify-center border-t border-slate-800 mt-2">
-                    <span class="text-slate-700 text-xs italic">Awaiting Telemetry...</span>
+                <div class="relative w-full h-44">
+                    <canvas id="chart_N"></canvas>
                 </div>
             </div>
-            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+        
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-sm flex flex-col justify-between">
                 <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
-                    <span class="font-bold text-sm text-slate-500">Node: NE</span>
+                    <span class="font-bold text-sm text-slate-200 tracking-wide">Boundary Node: NE</span>
+                    <span class="w-2.5 h-2.5 rounded-full shadow-sm" style="background-color: #fb923c;"></span>
                 </div>
-                <div class="relative w-full h-44 flex items-center justify-center border-t border-slate-800 mt-2">
-                    <span class="text-slate-700 text-xs italic">Awaiting Telemetry...</span>
+                <div class="relative w-full h-44">
+                    <canvas id="chart_NE"></canvas>
                 </div>
             </div>
-            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+        
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-sm flex flex-col justify-between">
                 <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
-                    <span class="font-bold text-sm text-slate-500">Node: E</span>
+                    <span class="font-bold text-sm text-slate-200 tracking-wide">Boundary Node: E</span>
+                    <span class="w-2.5 h-2.5 rounded-full shadow-sm" style="background-color: #facc15;"></span>
                 </div>
-                <div class="relative w-full h-44 flex items-center justify-center border-t border-slate-800 mt-2">
-                    <span class="text-slate-700 text-xs italic">Awaiting Telemetry...</span>
+                <div class="relative w-full h-44">
+                    <canvas id="chart_E"></canvas>
                 </div>
             </div>
-            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+        
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-sm flex flex-col justify-between">
                 <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
-                    <span class="font-bold text-sm text-slate-500">Node: SE</span>
+                    <span class="font-bold text-sm text-slate-200 tracking-wide">Boundary Node: SE</span>
+                    <span class="w-2.5 h-2.5 rounded-full shadow-sm" style="background-color: #4ade80;"></span>
                 </div>
-                <div class="relative w-full h-44 flex items-center justify-center border-t border-slate-800 mt-2">
-                    <span class="text-slate-700 text-xs italic">Awaiting Telemetry...</span>
+                <div class="relative w-full h-44">
+                    <canvas id="chart_SE"></canvas>
                 </div>
             </div>
-            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+        
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-sm flex flex-col justify-between">
                 <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
-                    <span class="font-bold text-sm text-slate-500">Node: S</span>
+                    <span class="font-bold text-sm text-slate-200 tracking-wide">Boundary Node: S</span>
+                    <span class="w-2.5 h-2.5 rounded-full shadow-sm" style="background-color: #2dd4bf;"></span>
                 </div>
-                <div class="relative w-full h-44 flex items-center justify-center border-t border-slate-800 mt-2">
-                    <span class="text-slate-700 text-xs italic">Awaiting Telemetry...</span>
+                <div class="relative w-full h-44">
+                    <canvas id="chart_S"></canvas>
                 </div>
             </div>
-            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+        
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-sm flex flex-col justify-between">
                 <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
-                    <span class="font-bold text-sm text-slate-500">Node: SW</span>
+                    <span class="font-bold text-sm text-slate-200 tracking-wide">Boundary Node: SW</span>
+                    <span class="w-2.5 h-2.5 rounded-full shadow-sm" style="background-color: #38bdf8;"></span>
                 </div>
-                <div class="relative w-full h-44 flex items-center justify-center border-t border-slate-800 mt-2">
-                    <span class="text-slate-700 text-xs italic">Awaiting Telemetry...</span>
+                <div class="relative w-full h-44">
+                    <canvas id="chart_SW"></canvas>
                 </div>
             </div>
-            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+        
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-sm flex flex-col justify-between">
                 <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
-                    <span class="font-bold text-sm text-slate-500">Node: W</span>
+                    <span class="font-bold text-sm text-slate-200 tracking-wide">Boundary Node: W</span>
+                    <span class="w-2.5 h-2.5 rounded-full shadow-sm" style="background-color: #818cf8;"></span>
                 </div>
-                <div class="relative w-full h-44 flex items-center justify-center border-t border-slate-800 mt-2">
-                    <span class="text-slate-700 text-xs italic">Awaiting Telemetry...</span>
+                <div class="relative w-full h-44">
+                    <canvas id="chart_W"></canvas>
                 </div>
             </div>
-            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between">
+        
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 shadow-sm flex flex-col justify-between">
                 <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-3">
-                    <span class="font-bold text-sm text-slate-500">Node: NW</span>
+                    <span class="font-bold text-sm text-slate-200 tracking-wide">Boundary Node: NW</span>
+                    <span class="w-2.5 h-2.5 rounded-full shadow-sm" style="background-color: #c084fc;"></span>
                 </div>
-                <div class="relative w-full h-44 flex items-center justify-center border-t border-slate-800 mt-2">
-                    <span class="text-slate-700 text-xs italic">Awaiting Telemetry...</span>
+                <div class="relative w-full h-44">
+                    <canvas id="chart_NW"></canvas>
                 </div>
             </div>
+        
         </div>
 
         <div class="mb-4 border-t border-slate-900 pt-8">
-            <h2 class="text-lg font-bold text-slate-300">Observed Shift Reality</h2>
+            <h2 class="text-lg font-bold text-slate-300 tracking-tight">Observed Shift Reality (Verified Meteorological Actuals)</h2>
+            <p class="text-xs text-slate-500 mt-0.5">Aggregated actual parameters parsed directly from high-precision intraday weather observation payloads</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800"><span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Observed Avg Temp</span><div class="text-3xl font-bold mt-1 text-slate-700">--</div></div>
-            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800"><span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Observed Wind Vector</span><div class="text-3xl font-bold mt-1 text-slate-700">--</div></div>
-            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800"><span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Observed Avg Humidity</span><div class="text-3xl font-bold mt-1 text-slate-700">--</div></div>
+            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 shadow-md">
+                <span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Observed Avg Temp</span>
+                <div class="text-3xl font-bold mt-1 text-emerald-400">62.3°F</div>
+            </div>
+            
+            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 shadow-md">
+                <span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Observed Wind Vector</span>
+                <div class="text-3xl font-bold mt-1 text-teal-400">283.6° (WNW)</div>
+                <div class="text-xs text-slate-500 mt-0.5">Verified Exposure Path: ESE</div>
+            </div>
+            
+            <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 shadow-md">
+                <span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Observed Avg Humidity</span>
+                <div class="text-3xl font-bold mt-1 text-cyan-400">89.2%</div>
+            </div>
         </div>
+
     </div>
+
+    <script>
+        const telemetryData = {"N": [{"x": "15:40", "y": 65.3}, {"x": "15:41", "y": 65.4}, {"x": "15:42", "y": 65.8}, {"x": "15:43", "y": 65.4}, {"x": "15:44", "y": 65.8}, {"x": "15:45", "y": 65.6}, {"x": "15:46", "y": 65.6}, {"x": "15:47", "y": 65.6}, {"x": "15:48", "y": 65.9}, {"x": "15:49", "y": 65.6}, {"x": "15:50", "y": 65.7}, {"x": "15:51", "y": 65.7}, {"x": "15:52", "y": 65.8}, {"x": "15:53", "y": 66.1}, {"x": "15:54", "y": 65.9}, {"x": "15:55", "y": 65.9}, {"x": "15:56", "y": 65.6}, {"x": "15:57", "y": 65.9}, {"x": "15:58", "y": 66.0}, {"x": "15:59", "y": 66.0}, {"x": "16:00", "y": 65.9}, {"x": "16:01", "y": 65.8}, {"x": "16:02", "y": 66.1}, {"x": "16:03", "y": 65.8}, {"x": "16:04", "y": 65.5}, {"x": "16:05", "y": 65.2}, {"x": "16:06", "y": 64.9}, {"x": "16:07", "y": 64.8}, {"x": "16:08", "y": 65.1}, {"x": "16:09", "y": 65.4}, {"x": "16:10", "y": 65.6}, {"x": "16:11", "y": 65.2}, {"x": "16:12", "y": 65.4}, {"x": "16:13", "y": 65.1}, {"x": "16:14", "y": 65.2}, {"x": "16:15", "y": 65.0}, {"x": "16:16", "y": 64.7}, {"x": "16:17", "y": 65.0}, {"x": "16:18", "y": 65.4}, {"x": "16:19", "y": 65.4}, {"x": "16:20", "y": 65.0}, {"x": "16:21", "y": 65.1}, {"x": "16:22", "y": 65.4}, {"x": "16:23", "y": 73.3}, {"x": "16:24", "y": 72.4}, {"x": "16:25", "y": 65.1}, {"x": "16:26", "y": 71.2}, {"x": "16:27", "y": 65.1}, {"x": "16:28", "y": 65.1}, {"x": "16:29", "y": 65.1}, {"x": "16:30", "y": 65.2}, {"x": "16:31", "y": 65.1}, {"x": "16:32", "y": 64.8}, {"x": "16:33", "y": 64.5}, {"x": "16:34", "y": 64.4}, {"x": "16:35", "y": 64.6}, {"x": "16:36", "y": 64.5}, {"x": "16:37", "y": 64.5}, {"x": "16:38", "y": 64.7}, {"x": "16:39", "y": 73.6}, {"x": "16:40", "y": 64.6}, {"x": "16:41", "y": 64.4}, {"x": "16:42", "y": 64.6}, {"x": "16:43", "y": 64.5}, {"x": "16:44", "y": 64.6}, {"x": "16:45", "y": 64.3}, {"x": "16:46", "y": 64.5}, {"x": "16:47", "y": 64.7}, {"x": "16:48", "y": 65.1}, {"x": "16:49", "y": 65.1}, {"x": "16:50", "y": 64.9}, {"x": "16:51", "y": 64.6}, {"x": "16:52", "y": 64.7}, {"x": "16:53", "y": 64.6}, {"x": "16:54", "y": 64.5}, {"x": "16:55", "y": 64.3}, {"x": "16:56", "y": 64.1}, {"x": "16:57", "y": 64.4}, {"x": "16:58", "y": 64.6}, {"x": "16:59", "y": 64.9}, {"x": "17:00", "y": 65.0}, {"x": "17:01", "y": 64.9}, {"x": "17:02", "y": 64.5}, {"x": "17:03", "y": 64.8}, {"x": "17:04", "y": 64.9}, {"x": "17:05", "y": 65.2}, {"x": "17:06", "y": 65.5}, {"x": "17:07", "y": 65.4}, {"x": "17:08", "y": 65.6}, {"x": "17:09", "y": 65.5}, {"x": "17:10", "y": 65.7}, {"x": "17:11", "y": 65.6}, {"x": "17:12", "y": 65.5}, {"x": "17:13", "y": 65.8}, {"x": "17:14", "y": 65.7}, {"x": "17:15", "y": 65.3}, {"x": "17:16", "y": 65.0}, {"x": "17:17", "y": 65.4}, {"x": "17:18", "y": 65.7}, {"x": "17:19", "y": 65.9}, {"x": "17:20", "y": 65.7}, {"x": "17:21", "y": 66.0}, {"x": "17:22", "y": 65.6}, {"x": "17:23", "y": 65.3}, {"x": "17:24", "y": 65.2}, {"x": "17:25", "y": 64.9}, {"x": "17:26", "y": 65.1}, {"x": "17:27", "y": 65.1}, {"x": "17:28", "y": 65.4}, {"x": "17:29", "y": 65.0}, {"x": "17:30", "y": 65.3}, {"x": "17:31", "y": 65.6}, {"x": "17:32", "y": 65.2}, {"x": "17:33", "y": 65.6}, {"x": "17:34", "y": 65.4}, {"x": "17:35", "y": 65.7}, {"x": "17:36", "y": 65.3}, {"x": "17:37", "y": 65.4}, {"x": "17:38", "y": 65.3}, {"x": "17:39", "y": 65.2}], "NE": [{"x": "15:40", "y": 64.8}, {"x": "15:41", "y": 65.0}, {"x": "15:42", "y": 65.1}, {"x": "15:43", "y": 64.7}, {"x": "15:44", "y": 64.6}, {"x": "15:45", "y": 64.4}, {"x": "15:46", "y": 64.7}, {"x": "15:47", "y": 65.0}, {"x": "15:48", "y": 64.8}, {"x": "15:49", "y": 64.4}, {"x": "15:50", "y": 64.8}, {"x": "15:51", "y": 65.1}, {"x": "15:52", "y": 65.3}, {"x": "15:53", "y": 65.2}, {"x": "15:54", "y": 65.3}, {"x": "15:55", "y": 65.2}, {"x": "15:56", "y": 65.6}, {"x": "15:57", "y": 65.5}, {"x": "15:58", "y": 65.4}, {"x": "15:59", "y": 65.6}, {"x": "16:00", "y": 65.4}, {"x": "16:01", "y": 65.8}, {"x": "16:02", "y": 65.6}, {"x": "16:03", "y": 65.8}, {"x": "16:04", "y": 65.5}, {"x": "16:05", "y": 65.8}, {"x": "16:06", "y": 65.7}, {"x": "16:07", "y": 65.4}, {"x": "16:08", "y": 65.6}, {"x": "16:09", "y": 65.7}, {"x": "16:10", "y": 65.4}, {"x": "16:11", "y": 65.3}, {"x": "16:12", "y": 65.6}, {"x": "16:13", "y": 65.5}, {"x": "16:14", "y": 65.6}, {"x": "16:15", "y": 65.3}, {"x": "16:16", "y": 65.4}, {"x": "16:17", "y": 65.1}, {"x": "16:18", "y": 65.5}, {"x": "16:19", "y": 65.6}, {"x": "16:20", "y": 65.3}, {"x": "16:21", "y": 65.6}, {"x": "16:22", "y": 65.4}, {"x": "16:23", "y": 147.7}, {"x": "16:24", "y": 141.3}, {"x": "16:25", "y": 131.7}, {"x": "16:26", "y": 129.2}, {"x": "16:27", "y": 132.8}, {"x": "16:28", "y": 118.9}, {"x": "16:29", "y": 150.1}, {"x": "16:30", "y": 177.9}, {"x": "16:31", "y": 110.8}, {"x": "16:32", "y": 136.4}, {"x": "16:33", "y": 137.0}, {"x": "16:34", "y": 118.7}, {"x": "16:35", "y": 143.9}, {"x": "16:36", "y": 130.1}, {"x": "16:37", "y": 141.0}, {"x": "16:38", "y": 141.2}, {"x": "16:39", "y": 113.0}, {"x": "16:40", "y": 65.6}, {"x": "16:41", "y": 65.4}, {"x": "16:42", "y": 65.6}, {"x": "16:43", "y": 65.8}, {"x": "16:44", "y": 65.9}, {"x": "16:45", "y": 66.2}, {"x": "16:46", "y": 66.5}, {"x": "16:47", "y": 66.5}, {"x": "16:48", "y": 66.6}, {"x": "16:49", "y": 66.6}, {"x": "16:50", "y": 66.7}, {"x": "16:51", "y": 66.7}, {"x": "16:52", "y": 66.4}, {"x": "16:53", "y": 66.7}, {"x": "16:54", "y": 66.9}, {"x": "16:55", "y": 66.7}, {"x": "16:56", "y": 66.8}, {"x": "16:57", "y": 66.6}, {"x": "16:58", "y": 66.2}, {"x": "16:59", "y": 65.9}, {"x": "17:00", "y": 65.7}, {"x": "17:01", "y": 65.9}, {"x": "17:02", "y": 65.7}, {"x": "17:03", "y": 65.5}, {"x": "17:04", "y": 65.2}, {"x": "17:05", "y": 65.1}, {"x": "17:06", "y": 65.0}, {"x": "17:07", "y": 65.1}, {"x": "17:08", "y": 64.9}, {"x": "17:09", "y": 64.7}, {"x": "17:10", "y": 64.8}, {"x": "17:11", "y": 64.5}, {"x": "17:12", "y": 64.3}, {"x": "17:13", "y": 64.0}, {"x": "17:14", "y": 64.4}, {"x": "17:15", "y": 64.3}, {"x": "17:16", "y": 64.5}, {"x": "17:17", "y": 64.6}, {"x": "17:18", "y": 64.7}, {"x": "17:19", "y": 64.9}, {"x": "17:20", "y": 65.3}, {"x": "17:21", "y": 64.9}, {"x": "17:22", "y": 64.5}, {"x": "17:23", "y": 64.3}, {"x": "17:24", "y": 64.0}, {"x": "17:25", "y": 64.1}, {"x": "17:26", "y": 64.0}, {"x": "17:27", "y": 64.4}, {"x": "17:28", "y": 64.3}, {"x": "17:29", "y": 64.4}, {"x": "17:30", "y": 64.7}, {"x": "17:31", "y": 64.7}, {"x": "17:32", "y": 64.7}, {"x": "17:33", "y": 64.3}, {"x": "17:34", "y": 64.7}, {"x": "17:35", "y": 64.8}, {"x": "17:36", "y": 65.1}, {"x": "17:37", "y": 65.0}, {"x": "17:38", "y": 64.7}, {"x": "17:39", "y": 64.9}], "E": [{"x": "15:40", "y": 64.6}, {"x": "15:41", "y": 64.8}, {"x": "15:42", "y": 64.7}, {"x": "15:43", "y": 64.9}, {"x": "15:44", "y": 65.2}, {"x": "15:45", "y": 65.2}, {"x": "15:46", "y": 65.2}, {"x": "15:47", "y": 65.4}, {"x": "15:48", "y": 65.1}, {"x": "15:49", "y": 65.3}, {"x": "15:50", "y": 64.9}, {"x": "15:51", "y": 65.2}, {"x": "15:52", "y": 65.5}, {"x": "15:53", "y": 65.2}, {"x": "15:54", "y": 65.0}, {"x": "15:55", "y": 65.3}, {"x": "15:56", "y": 65.0}, {"x": "15:57", "y": 65.4}, {"x": "15:58", "y": 65.4}, {"x": "15:59", "y": 65.1}, {"x": "16:00", "y": 65.5}, {"x": "16:01", "y": 65.6}, {"x": "16:02", "y": 65.4}, {"x": "16:03", "y": 65.5}, {"x": "16:04", "y": 65.8}, {"x": "16:05", "y": 65.8}, {"x": "16:06", "y": 66.2}, {"x": "16:07", "y": 66.5}, {"x": "16:08", "y": 66.8}, {"x": "16:09", "y": 67.1}, {"x": "16:10", "y": 67.5}, {"x": "16:11", "y": 67.5}, {"x": "16:12", "y": 67.8}, {"x": "16:13", "y": 67.4}, {"x": "16:14", "y": 67.5}, {"x": "16:15", "y": 67.1}, {"x": "16:16", "y": 67.3}, {"x": "16:17", "y": 67.6}, {"x": "16:18", "y": 67.2}, {"x": "16:19", "y": 67.2}, {"x": "16:20", "y": 67.4}, {"x": "16:21", "y": 67.1}, {"x": "16:22", "y": 66.8}, {"x": "16:23", "y": 67.1}, {"x": "16:24", "y": 81.3}, {"x": "16:25", "y": 66.9}, {"x": "16:26", "y": 67.1}, {"x": "16:27", "y": 67.1}, {"x": "16:28", "y": 66.8}, {"x": "16:29", "y": 66.7}, {"x": "16:30", "y": 67.0}, {"x": "16:31", "y": 74.4}, {"x": "16:32", "y": 67.2}, {"x": "16:33", "y": 67.1}, {"x": "16:34", "y": 66.9}, {"x": "16:35", "y": 78.4}, {"x": "16:36", "y": 66.6}, {"x": "16:37", "y": 73.4}, {"x": "16:38", "y": 66.4}, {"x": "16:39", "y": 78.4}, {"x": "16:40", "y": 65.8}, {"x": "16:41", "y": 65.8}, {"x": "16:42", "y": 66.2}, {"x": "16:43", "y": 65.8}, {"x": "16:44", "y": 66.1}, {"x": "16:45", "y": 66.5}, {"x": "16:46", "y": 66.7}, {"x": "16:47", "y": 66.5}, {"x": "16:48", "y": 66.4}, {"x": "16:49", "y": 66.1}, {"x": "16:50", "y": 66.0}, {"x": "16:51", "y": 65.9}, {"x": "16:52", "y": 66.2}, {"x": "16:53", "y": 66.6}, {"x": "16:54", "y": 66.5}, {"x": "16:55", "y": 66.9}, {"x": "16:56", "y": 67.2}, {"x": "16:57", "y": 66.9}, {"x": "16:58", "y": 67.2}, {"x": "16:59", "y": 66.9}, {"x": "17:00", "y": 67.0}, {"x": "17:01", "y": 66.8}, {"x": "17:02", "y": 66.8}, {"x": "17:03", "y": 67.0}, {"x": "17:04", "y": 66.9}, {"x": "17:05", "y": 67.3}, {"x": "17:06", "y": 67.0}, {"x": "17:07", "y": 66.9}, {"x": "17:08", "y": 66.8}, {"x": "17:09", "y": 67.1}, {"x": "17:10", "y": 66.8}, {"x": "17:11", "y": 66.8}, {"x": "17:12", "y": 66.4}, {"x": "17:13", "y": 66.4}, {"x": "17:14", "y": 66.1}, {"x": "17:15", "y": 66.1}, {"x": "17:16", "y": 65.9}, {"x": "17:17", "y": 65.7}, {"x": "17:18", "y": 65.6}, {"x": "17:19", "y": 65.7}, {"x": "17:20", "y": 65.4}, {"x": "17:21", "y": 65.8}, {"x": "17:22", "y": 65.8}, {"x": "17:23", "y": 66.0}, {"x": "17:24", "y": 66.2}, {"x": "17:25", "y": 65.9}, {"x": "17:26", "y": 66.1}, {"x": "17:27", "y": 66.0}, {"x": "17:28", "y": 66.1}, {"x": "17:29", "y": 65.8}, {"x": "17:30", "y": 65.8}, {"x": "17:31", "y": 65.7}, {"x": "17:32", "y": 65.6}, {"x": "17:33", "y": 65.3}, {"x": "17:34", "y": 65.5}, {"x": "17:35", "y": 65.8}, {"x": "17:36", "y": 65.8}, {"x": "17:37", "y": 65.8}, {"x": "17:38", "y": 65.7}, {"x": "17:39", "y": 65.9}], "SE": [{"x": "15:40", "y": 65.3}, {"x": "15:41", "y": 65.5}, {"x": "15:42", "y": 65.1}, {"x": "15:43", "y": 65.2}, {"x": "15:44", "y": 64.9}, {"x": "15:45", "y": 64.9}, {"x": "15:46", "y": 65.3}, {"x": "15:47", "y": 65.2}, {"x": "15:48", "y": 65.6}, {"x": "15:49", "y": 65.8}, {"x": "15:50", "y": 65.5}, {"x": "15:51", "y": 65.4}, {"x": "15:52", "y": 65.8}, {"x": "15:53", "y": 65.5}, {"x": "15:54", "y": 65.4}, {"x": "15:55", "y": 65.3}, {"x": "15:56", "y": 65.0}, {"x": "15:57", "y": 65.3}, {"x": "15:58", "y": 65.6}, {"x": "15:59", "y": 65.8}, {"x": "16:00", "y": 66.1}, {"x": "16:01", "y": 66.3}, {"x": "16:02", "y": 66.0}, {"x": "16:03", "y": 66.1}, {"x": "16:04", "y": 66.4}, {"x": "16:05", "y": 66.6}, {"x": "16:06", "y": 66.8}, {"x": "16:07", "y": 66.9}, {"x": "16:08", "y": 67.0}, {"x": "16:09", "y": 67.0}, {"x": "16:10", "y": 67.1}, {"x": "16:11", "y": 67.3}, {"x": "16:12", "y": 67.1}, {"x": "16:13", "y": 66.8}, {"x": "16:14", "y": 66.6}, {"x": "16:15", "y": 66.6}, {"x": "16:16", "y": 66.3}, {"x": "16:17", "y": 66.1}, {"x": "16:18", "y": 66.3}, {"x": "16:19", "y": 66.1}, {"x": "16:20", "y": 65.8}, {"x": "16:21", "y": 66.0}, {"x": "16:22", "y": 66.2}, {"x": "16:23", "y": 65.9}, {"x": "16:24", "y": 66.3}, {"x": "16:25", "y": 77.0}, {"x": "16:26", "y": 80.2}, {"x": "16:27", "y": 74.0}, {"x": "16:28", "y": 65.7}, {"x": "16:29", "y": 65.9}, {"x": "16:30", "y": 70.7}, {"x": "16:31", "y": 65.8}, {"x": "16:32", "y": 76.2}, {"x": "16:33", "y": 66.2}, {"x": "16:34", "y": 66.3}, {"x": "16:35", "y": 66.5}, {"x": "16:36", "y": 76.6}, {"x": "16:37", "y": 66.6}, {"x": "16:38", "y": 76.1}, {"x": "16:39", "y": 77.5}, {"x": "16:40", "y": 67.0}, {"x": "16:41", "y": 67.1}, {"x": "16:42", "y": 67.3}, {"x": "16:43", "y": 67.0}, {"x": "16:44", "y": 67.1}, {"x": "16:45", "y": 67.2}, {"x": "16:46", "y": 67.2}, {"x": "16:47", "y": 67.2}, {"x": "16:48", "y": 67.3}, {"x": "16:49", "y": 67.2}, {"x": "16:50", "y": 67.5}, {"x": "16:51", "y": 67.5}, {"x": "16:52", "y": 67.1}, {"x": "16:53", "y": 67.2}, {"x": "16:54", "y": 66.9}, {"x": "16:55", "y": 66.9}, {"x": "16:56", "y": 66.8}, {"x": "16:57", "y": 67.1}, {"x": "16:58", "y": 67.1}, {"x": "16:59", "y": 66.9}, {"x": "17:00", "y": 66.8}, {"x": "17:01", "y": 66.7}, {"x": "17:02", "y": 66.5}, {"x": "17:03", "y": 66.9}, {"x": "17:04", "y": 66.8}, {"x": "17:05", "y": 66.8}, {"x": "17:06", "y": 66.8}, {"x": "17:07", "y": 66.6}, {"x": "17:08", "y": 66.9}, {"x": "17:09", "y": 66.8}, {"x": "17:10", "y": 67.1}, {"x": "17:11", "y": 66.7}, {"x": "17:12", "y": 66.4}, {"x": "17:13", "y": 66.3}, {"x": "17:14", "y": 66.5}, {"x": "17:15", "y": 66.4}, {"x": "17:16", "y": 66.3}, {"x": "17:17", "y": 66.5}, {"x": "17:18", "y": 66.2}, {"x": "17:19", "y": 66.6}, {"x": "17:20", "y": 66.5}, {"x": "17:21", "y": 66.4}, {"x": "17:22", "y": 66.5}, {"x": "17:23", "y": 66.2}, {"x": "17:24", "y": 66.2}, {"x": "17:25", "y": 66.6}, {"x": "17:26", "y": 66.4}, {"x": "17:27", "y": 66.1}, {"x": "17:28", "y": 66.1}, {"x": "17:29", "y": 66.3}, {"x": "17:30", "y": 66.2}, {"x": "17:31", "y": 66.0}, {"x": "17:32", "y": 66.2}, {"x": "17:33", "y": 66.3}, {"x": "17:34", "y": 66.6}, {"x": "17:35", "y": 66.8}, {"x": "17:36", "y": 67.0}, {"x": "17:37", "y": 66.7}, {"x": "17:38", "y": 66.6}, {"x": "17:39", "y": 66.6}], "S": [{"x": "15:40", "y": 65.0}, {"x": "15:41", "y": 65.2}, {"x": "15:42", "y": 65.2}, {"x": "15:43", "y": 65.4}, {"x": "15:44", "y": 65.7}, {"x": "15:45", "y": 66.0}, {"x": "15:46", "y": 66.2}, {"x": "15:47", "y": 66.4}, {"x": "15:48", "y": 66.2}, {"x": "15:49", "y": 66.3}, {"x": "15:50", "y": 66.2}, {"x": "15:51", "y": 66.2}, {"x": "15:52", "y": 66.4}, {"x": "15:53", "y": 66.4}, {"x": "15:54", "y": 66.7}, {"x": "15:55", "y": 66.4}, {"x": "15:56", "y": 66.5}, {"x": "15:57", "y": 66.3}, {"x": "15:58", "y": 66.5}, {"x": "15:59", "y": 66.2}, {"x": "16:00", "y": 65.9}, {"x": "16:01", "y": 65.8}, {"x": "16:02", "y": 66.1}, {"x": "16:03", "y": 65.9}, {"x": "16:04", "y": 65.8}, {"x": "16:05", "y": 65.8}, {"x": "16:06", "y": 65.5}, {"x": "16:07", "y": 65.9}, {"x": "16:08", "y": 65.7}, {"x": "16:09", "y": 65.9}, {"x": "16:10", "y": 66.2}, {"x": "16:11", "y": 65.9}, {"x": "16:12", "y": 66.1}, {"x": "16:13", "y": 66.1}, {"x": "16:14", "y": 66.5}, {"x": "16:15", "y": 66.8}, {"x": "16:16", "y": 67.2}, {"x": "16:17", "y": 67.0}, {"x": "16:18", "y": 67.2}, {"x": "16:19", "y": 67.5}, {"x": "16:20", "y": 67.3}, {"x": "16:21", "y": 67.0}, {"x": "16:22", "y": 66.8}, {"x": "16:23", "y": 67.1}, {"x": "16:24", "y": 67.0}, {"x": "16:25", "y": 77.5}, {"x": "16:26", "y": 66.8}, {"x": "16:27", "y": 66.5}, {"x": "16:28", "y": 66.3}, {"x": "16:29", "y": 66.2}, {"x": "16:30", "y": 77.4}, {"x": "16:31", "y": 66.6}, {"x": "16:32", "y": 72.2}, {"x": "16:33", "y": 66.9}, {"x": "16:34", "y": 66.7}, {"x": "16:35", "y": 66.7}, {"x": "16:36", "y": 66.4}, {"x": "16:37", "y": 80.2}, {"x": "16:38", "y": 77.9}, {"x": "16:39", "y": 72.6}, {"x": "16:40", "y": 67.2}, {"x": "16:41", "y": 67.5}, {"x": "16:42", "y": 67.6}, {"x": "16:43", "y": 67.9}, {"x": "16:44", "y": 67.7}, {"x": "16:45", "y": 67.4}, {"x": "16:46", "y": 67.1}, {"x": "16:47", "y": 67.4}, {"x": "16:48", "y": 67.6}, {"x": "16:49", "y": 67.5}, {"x": "16:50", "y": 67.8}, {"x": "16:51", "y": 68.0}, {"x": "16:52", "y": 68.0}, {"x": "16:53", "y": 68.2}, {"x": "16:54", "y": 68.1}, {"x": "16:55", "y": 68.4}, {"x": "16:56", "y": 68.3}, {"x": "16:57", "y": 68.3}, {"x": "16:58", "y": 68.1}, {"x": "16:59", "y": 68.1}, {"x": "17:00", "y": 68.1}, {"x": "17:01", "y": 68.2}, {"x": "17:02", "y": 68.6}, {"x": "17:03", "y": 68.9}, {"x": "17:04", "y": 68.7}, {"x": "17:05", "y": 68.5}, {"x": "17:06", "y": 68.2}, {"x": "17:07", "y": 67.9}, {"x": "17:08", "y": 67.8}, {"x": "17:09", "y": 67.7}, {"x": "17:10", "y": 67.9}, {"x": "17:11", "y": 68.3}, {"x": "17:12", "y": 68.3}, {"x": "17:13", "y": 68.6}, {"x": "17:14", "y": 68.6}, {"x": "17:15", "y": 68.6}, {"x": "17:16", "y": 68.6}, {"x": "17:17", "y": 68.2}, {"x": "17:18", "y": 68.4}, {"x": "17:19", "y": 68.2}, {"x": "17:20", "y": 68.6}, {"x": "17:21", "y": 68.9}, {"x": "17:22", "y": 68.8}, {"x": "17:23", "y": 68.8}, {"x": "17:24", "y": 69.1}, {"x": "17:25", "y": 69.4}, {"x": "17:26", "y": 69.8}, {"x": "17:27", "y": 69.9}, {"x": "17:28", "y": 70.0}, {"x": "17:29", "y": 70.1}, {"x": "17:30", "y": 70.4}, {"x": "17:31", "y": 70.2}, {"x": "17:32", "y": 69.8}, {"x": "17:33", "y": 69.9}, {"x": "17:34", "y": 69.8}, {"x": "17:35", "y": 69.8}, {"x": "17:36", "y": 69.9}, {"x": "17:37", "y": 70.1}, {"x": "17:38", "y": 70.3}, {"x": "17:39", "y": 70.6}], "SW": [{"x": "15:40", "y": 65.2}, {"x": "15:41", "y": 64.9}, {"x": "15:42", "y": 65.2}, {"x": "15:43", "y": 64.9}, {"x": "15:44", "y": 64.5}, {"x": "15:45", "y": 64.8}, {"x": "15:46", "y": 64.9}, {"x": "15:47", "y": 64.7}, {"x": "15:48", "y": 64.9}, {"x": "15:49", "y": 65.1}, {"x": "15:50", "y": 65.3}, {"x": "15:51", "y": 65.4}, {"x": "15:52", "y": 65.3}, {"x": "15:53", "y": 65.4}, {"x": "15:54", "y": 65.5}, {"x": "15:55", "y": 65.3}, {"x": "15:56", "y": 65.6}, {"x": "15:57", "y": 65.9}, {"x": "15:58", "y": 65.7}, {"x": "15:59", "y": 65.6}, {"x": "16:00", "y": 65.4}, {"x": "16:01", "y": 65.2}, {"x": "16:02", "y": 64.8}, {"x": "16:03", "y": 65.0}, {"x": "16:04", "y": 65.3}, {"x": "16:05", "y": 65.5}, {"x": "16:06", "y": 65.2}, {"x": "16:07", "y": 65.4}, {"x": "16:08", "y": 65.5}, {"x": "16:09", "y": 65.6}, {"x": "16:10", "y": 65.6}, {"x": "16:11", "y": 65.4}, {"x": "16:12", "y": 65.3}, {"x": "16:13", "y": 65.2}, {"x": "16:14", "y": 65.1}, {"x": "16:15", "y": 64.9}, {"x": "16:16", "y": 64.9}, {"x": "16:17", "y": 65.1}, {"x": "16:18", "y": 65.2}, {"x": "16:19", "y": 65.4}, {"x": "16:20", "y": 65.4}, {"x": "16:21", "y": 65.2}, {"x": "16:22", "y": 65.0}, {"x": "16:23", "y": 64.9}, {"x": "16:24", "y": 64.8}, {"x": "16:25", "y": 64.6}, {"x": "16:26", "y": 64.2}, {"x": "16:27", "y": 74.6}, {"x": "16:28", "y": 71.3}, {"x": "16:29", "y": 79.0}, {"x": "16:30", "y": 70.3}, {"x": "16:31", "y": 77.1}, {"x": "16:32", "y": 78.3}, {"x": "16:33", "y": 64.2}, {"x": "16:34", "y": 72.3}, {"x": "16:35", "y": 64.3}, {"x": "16:36", "y": 71.9}, {"x": "16:37", "y": 74.4}, {"x": "16:38", "y": 63.2}, {"x": "16:39", "y": 72.4}, {"x": "16:40", "y": 63.4}, {"x": "16:41", "y": 63.7}, {"x": "16:42", "y": 64.0}, {"x": "16:43", "y": 64.3}, {"x": "16:44", "y": 64.0}, {"x": "16:45", "y": 64.0}, {"x": "16:46", "y": 63.8}, {"x": "16:47", "y": 63.9}, {"x": "16:48", "y": 64.1}, {"x": "16:49", "y": 64.5}, {"x": "16:50", "y": 64.1}, {"x": "16:51", "y": 64.4}, {"x": "16:52", "y": 64.7}, {"x": "16:53", "y": 64.5}, {"x": "16:54", "y": 64.7}, {"x": "16:55", "y": 65.0}, {"x": "16:56", "y": 65.2}, {"x": "16:57", "y": 65.6}, {"x": "16:58", "y": 66.0}, {"x": "16:59", "y": 66.3}, {"x": "17:00", "y": 66.3}, {"x": "17:01", "y": 66.3}, {"x": "17:02", "y": 66.7}, {"x": "17:03", "y": 67.0}, {"x": "17:04", "y": 66.7}, {"x": "17:05", "y": 66.9}, {"x": "17:06", "y": 66.5}, {"x": "17:07", "y": 66.5}, {"x": "17:08", "y": 66.5}, {"x": "17:09", "y": 66.7}, {"x": "17:10", "y": 66.4}, {"x": "17:11", "y": 66.7}, {"x": "17:12", "y": 66.7}, {"x": "17:13", "y": 66.9}, {"x": "17:14", "y": 66.5}, {"x": "17:15", "y": 66.1}, {"x": "17:16", "y": 66.4}, {"x": "17:17", "y": 66.4}, {"x": "17:18", "y": 66.7}, {"x": "17:19", "y": 66.8}, {"x": "17:20", "y": 66.8}, {"x": "17:21", "y": 67.1}, {"x": "17:22", "y": 67.2}, {"x": "17:23", "y": 67.2}, {"x": "17:24", "y": 67.6}, {"x": "17:25", "y": 67.3}, {"x": "17:26", "y": 67.2}, {"x": "17:27", "y": 67.4}, {"x": "17:28", "y": 67.1}, {"x": "17:29", "y": 66.7}, {"x": "17:30", "y": 66.6}, {"x": "17:31", "y": 66.6}, {"x": "17:32", "y": 67.0}, {"x": "17:33", "y": 67.0}, {"x": "17:34", "y": 67.3}, {"x": "17:35", "y": 67.0}, {"x": "17:36", "y": 66.6}, {"x": "17:37", "y": 66.4}, {"x": "17:38", "y": 66.4}, {"x": "17:39", "y": 66.5}], "W": [{"x": "15:40", "y": 65.0}, {"x": "15:41", "y": 65.0}, {"x": "15:42", "y": 65.2}, {"x": "15:43", "y": 64.9}, {"x": "15:44", "y": 64.5}, {"x": "15:45", "y": 64.2}, {"x": "15:46", "y": 64.2}, {"x": "15:47", "y": 64.1}, {"x": "15:48", "y": 64.3}, {"x": "15:49", "y": 64.6}, {"x": "15:50", "y": 65.0}, {"x": "15:51", "y": 65.0}, {"x": "15:52", "y": 65.4}, {"x": "15:53", "y": 65.1}, {"x": "15:54", "y": 65.5}, {"x": "15:55", "y": 65.5}, {"x": "15:56", "y": 65.8}, {"x": "15:57", "y": 65.8}, {"x": "15:58", "y": 66.1}, {"x": "15:59", "y": 66.4}, {"x": "16:00", "y": 66.1}, {"x": "16:01", "y": 66.2}, {"x": "16:02", "y": 66.2}, {"x": "16:03", "y": 66.1}, {"x": "16:04", "y": 66.3}, {"x": "16:05", "y": 66.2}, {"x": "16:06", "y": 66.4}, {"x": "16:07", "y": 66.4}, {"x": "16:08", "y": 66.7}, {"x": "16:09", "y": 66.7}, {"x": "16:10", "y": 66.8}, {"x": "16:11", "y": 66.8}, {"x": "16:12", "y": 67.0}, {"x": "16:13", "y": 67.0}, {"x": "16:14", "y": 67.2}, {"x": "16:15", "y": 67.4}, {"x": "16:16", "y": 67.7}, {"x": "16:17", "y": 67.7}, {"x": "16:18", "y": 67.5}, {"x": "16:19", "y": 67.4}, {"x": "16:20", "y": 67.6}, {"x": "16:21", "y": 67.2}, {"x": "16:22", "y": 67.0}, {"x": "16:23", "y": 67.3}, {"x": "16:24", "y": 79.6}, {"x": "16:25", "y": 76.9}, {"x": "16:26", "y": 67.1}, {"x": "16:27", "y": 67.5}, {"x": "16:28", "y": 75.5}, {"x": "16:29", "y": 68.0}, {"x": "16:30", "y": 68.3}, {"x": "16:31", "y": 68.6}, {"x": "16:32", "y": 68.8}, {"x": "16:33", "y": 68.6}, {"x": "16:34", "y": 68.3}, {"x": "16:35", "y": 67.9}, {"x": "16:36", "y": 67.8}, {"x": "16:37", "y": 68.0}, {"x": "16:38", "y": 81.7}, {"x": "16:39", "y": 67.9}, {"x": "16:40", "y": 67.8}, {"x": "16:41", "y": 67.9}, {"x": "16:42", "y": 67.7}, {"x": "16:43", "y": 67.8}, {"x": "16:44", "y": 67.7}, {"x": "16:45", "y": 67.3}, {"x": "16:46", "y": 67.2}, {"x": "16:47", "y": 67.5}, {"x": "16:48", "y": 67.4}, {"x": "16:49", "y": 67.2}, {"x": "16:50", "y": 67.1}, {"x": "16:51", "y": 67.4}, {"x": "16:52", "y": 67.3}, {"x": "16:53", "y": 67.5}, {"x": "16:54", "y": 67.5}, {"x": "16:55", "y": 67.5}, {"x": "16:56", "y": 67.5}, {"x": "16:57", "y": 67.5}, {"x": "16:58", "y": 67.1}, {"x": "16:59", "y": 67.0}, {"x": "17:00", "y": 67.4}, {"x": "17:01", "y": 67.1}, {"x": "17:02", "y": 67.4}, {"x": "17:03", "y": 67.8}, {"x": "17:04", "y": 68.1}, {"x": "17:05", "y": 68.2}, {"x": "17:06", "y": 68.1}, {"x": "17:07", "y": 68.0}, {"x": "17:08", "y": 68.2}, {"x": "17:09", "y": 68.5}, {"x": "17:10", "y": 68.3}, {"x": "17:11", "y": 68.0}, {"x": "17:12", "y": 68.2}, {"x": "17:13", "y": 68.4}, {"x": "17:14", "y": 68.0}, {"x": "17:15", "y": 67.8}, {"x": "17:16", "y": 67.8}, {"x": "17:17", "y": 68.1}, {"x": "17:18", "y": 68.1}, {"x": "17:19", "y": 68.2}, {"x": "17:20", "y": 68.5}, {"x": "17:21", "y": 68.5}, {"x": "17:22", "y": 68.5}, {"x": "17:23", "y": 68.6}, {"x": "17:24", "y": 68.5}, {"x": "17:25", "y": 68.9}, {"x": "17:26", "y": 68.8}, {"x": "17:27", "y": 68.7}, {"x": "17:28", "y": 68.7}, {"x": "17:29", "y": 68.5}, {"x": "17:30", "y": 68.6}, {"x": "17:31", "y": 68.3}, {"x": "17:32", "y": 68.1}, {"x": "17:33", "y": 67.9}, {"x": "17:34", "y": 67.8}, {"x": "17:35", "y": 68.0}, {"x": "17:36", "y": 68.0}, {"x": "17:37", "y": 68.4}, {"x": "17:38", "y": 68.4}, {"x": "17:39", "y": 68.5}], "NW": [{"x": "15:40", "y": 64.8}, {"x": "15:41", "y": 65.2}, {"x": "15:42", "y": 65.5}, {"x": "15:43", "y": 65.6}, {"x": "15:44", "y": 65.8}, {"x": "15:45", "y": 65.7}, {"x": "15:46", "y": 65.8}, {"x": "15:47", "y": 65.7}, {"x": "15:48", "y": 66.0}, {"x": "15:49", "y": 66.4}, {"x": "15:50", "y": 66.2}, {"x": "15:51", "y": 66.0}, {"x": "15:52", "y": 65.8}, {"x": "15:53", "y": 65.5}, {"x": "15:54", "y": 65.2}, {"x": "15:55", "y": 65.0}, {"x": "15:56", "y": 64.9}, {"x": "15:57", "y": 65.3}, {"x": "15:58", "y": 65.0}, {"x": "15:59", "y": 64.7}, {"x": "16:00", "y": 64.5}, {"x": "16:01", "y": 64.8}, {"x": "16:02", "y": 65.0}, {"x": "16:03", "y": 64.6}, {"x": "16:04", "y": 64.6}, {"x": "16:05", "y": 64.5}, {"x": "16:06", "y": 64.6}, {"x": "16:07", "y": 64.2}, {"x": "16:08", "y": 64.3}, {"x": "16:09", "y": 64.4}, {"x": "16:10", "y": 64.0}, {"x": "16:11", "y": 64.0}, {"x": "16:12", "y": 64.0}, {"x": "16:13", "y": 64.2}, {"x": "16:14", "y": 64.1}, {"x": "16:15", "y": 64.4}, {"x": "16:16", "y": 64.4}, {"x": "16:17", "y": 64.4}, {"x": "16:18", "y": 64.1}, {"x": "16:19", "y": 64.3}, {"x": "16:20", "y": 64.4}, {"x": "16:21", "y": 64.1}, {"x": "16:22", "y": 63.8}, {"x": "16:23", "y": 68.5}, {"x": "16:24", "y": 63.5}, {"x": "16:25", "y": 70.5}, {"x": "16:26", "y": 63.6}, {"x": "16:27", "y": 63.7}, {"x": "16:28", "y": 63.9}, {"x": "16:29", "y": 70.5}, {"x": "16:30", "y": 63.8}, {"x": "16:31", "y": 63.6}, {"x": "16:32", "y": 63.4}, {"x": "16:33", "y": 63.0}, {"x": "16:34", "y": 63.4}, {"x": "16:35", "y": 77.2}, {"x": "16:36", "y": 63.2}, {"x": "16:37", "y": 72.3}, {"x": "16:38", "y": 63.5}, {"x": "16:39", "y": 63.2}, {"x": "16:40", "y": 63.6}, {"x": "16:41", "y": 63.8}, {"x": "16:42", "y": 63.9}, {"x": "16:43", "y": 64.0}, {"x": "16:44", "y": 63.8}, {"x": "16:45", "y": 63.8}, {"x": "16:46", "y": 63.6}, {"x": "16:47", "y": 63.6}, {"x": "16:48", "y": 63.6}, {"x": "16:49", "y": 63.4}, {"x": "16:50", "y": 63.5}, {"x": "16:51", "y": 63.8}, {"x": "16:52", "y": 63.8}, {"x": "16:53", "y": 64.1}, {"x": "16:54", "y": 63.8}, {"x": "16:55", "y": 64.1}, {"x": "16:56", "y": 63.8}, {"x": "16:57", "y": 63.7}, {"x": "16:58", "y": 63.9}, {"x": "16:59", "y": 64.1}, {"x": "17:00", "y": 63.9}, {"x": "17:01", "y": 63.9}, {"x": "17:02", "y": 63.5}, {"x": "17:03", "y": 63.7}, {"x": "17:04", "y": 63.8}, {"x": "17:05", "y": 63.9}, {"x": "17:06", "y": 63.8}, {"x": "17:07", "y": 64.0}, {"x": "17:08", "y": 64.0}, {"x": "17:09", "y": 63.8}, {"x": "17:10", "y": 63.5}, {"x": "17:11", "y": 63.8}, {"x": "17:12", "y": 63.6}, {"x": "17:13", "y": 63.8}, {"x": "17:14", "y": 63.6}, {"x": "17:15", "y": 63.8}, {"x": "17:16", "y": 63.9}, {"x": "17:17", "y": 63.6}, {"x": "17:18", "y": 63.2}, {"x": "17:19", "y": 63.1}, {"x": "17:20", "y": 63.3}, {"x": "17:21", "y": 63.0}, {"x": "17:22", "y": 62.9}, {"x": "17:23", "y": 63.1}, {"x": "17:24", "y": 63.1}, {"x": "17:25", "y": 63.3}, {"x": "17:26", "y": 63.6}, {"x": "17:27", "y": 63.6}, {"x": "17:28", "y": 63.9}, {"x": "17:29", "y": 63.8}, {"x": "17:30", "y": 63.4}, {"x": "17:31", "y": 63.7}, {"x": "17:32", "y": 63.6}, {"x": "17:33", "y": 63.3}, {"x": "17:34", "y": 62.9}, {"x": "17:35", "y": 63.1}, {"x": "17:36", "y": 63.0}, {"x": "17:37", "y": 62.8}, {"x": "17:38", "y": 62.6}, {"x": "17:39", "y": 62.9}]};
+        const nodeColors = {"N": "#f87171", "NE": "#fb923c", "E": "#facc15", "SE": "#4ade80", "S": "#2dd4bf", "SW": "#38bdf8", "W": "#818cf8", "NW": "#c084fc"};
+
+        Object.keys(telemetryData).forEach(node => {
+            const ctx = document.getElementById(`chart_${node}`).getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: `${node} Node Ingestion (ppb)`,
+                        data: telemetryData[node],
+                        borderColor: nodeColors[node],
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        pointHoverRadius: 4,
+                        fill: false,
+                        tension: 0.15
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: '#1e293b',
+                            titleColor: '#94a3b8',
+                            bodyColor: '#f1f5f9',
+                            borderColor: '#334155',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: {
+                                parser: 'HH:mm',
+                                unit: 'hour',
+                                displayFormats: { hour: 'HH:mm' }
+                            },
+                            min: '07:00',
+                            max: '17:00',
+                            grid: { color: '#1e293b' },
+                            ticks: { color: '#64748b', font: { size: 9 } }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            suggestedMax: 150,
+                            grid: { color: '#1e293b' },
+                            ticks: { color: '#64748b', font: { size: 9 } }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
