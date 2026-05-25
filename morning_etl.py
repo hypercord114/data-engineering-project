@@ -4,8 +4,12 @@ import math
 import sys
 import logging  
 import duckdb
+import psycopg2  # Added to extract raw data back from Postgres
 from datetime import datetime
 from zoneinfo import ZoneInfo
+
+# Pull the PostgreSQL connection string from GitHub Secrets securely
+DB_CONNECTION_STRING = os.getenv("POSTGRES_DB_URI")
 
 # --- LOGGING CONFIGURATION ---
 logging.basicConfig(
@@ -58,33 +62,67 @@ def save_forecast_to_duckdb(today_date, avg_wind, avg_temp, avg_humid, upwind, d
     finally:
         connection.close()
 
+def extract_hourly_from_postgresql(today_date):
+    """ Queries PostgreSQL for records loaded today and transforms them back into the parallel list structure. """
+    if not DB_CONNECTION_STRING:
+        logging.error("TRANSFORM CRITICAL ERROR: POSTGRES_DB_URI environment variable is missing. Aborting.")
+        sys.exit(1)
+
+    # Initialize empty parallel arrays matching the Open-Meteo dictionary contract
+    hourly_dict = {
+        "time": [],
+        "wind_direction_10m": [],
+        "temperature_2m": [],
+        "relative_humidity_2m": []
+    }
+
+    try:
+        logging.info(f"Connecting to cloud Neon PostgreSQL database instance to read metrics for {today_date}...")
+        conn = psycopg2.connect(DB_CONNECTION_STRING)
+        
+        with conn.cursor() as cur:
+            # Query metrics extracted on the target date, ordered sequentially by forecast_time
+            cur.execute("""
+                SELECT forecast_time, temperature_f, relative_humidity, wind_direction_deg 
+                FROM hourly_weather_forecast
+                WHERE DATE(extracted_at AT TIME ZONE 'America/New_York') = %s
+                ORDER BY forecast_time ASC;
+            """, (today_date,))
+            
+            rows = cur.fetchall()
+            
+            if not rows:
+                logging.error(f"TRANSFORM CRITICAL ERROR: No data found in PostgreSQL for extraction date: {today_date}. Aborting.")
+                conn.close()
+                sys.exit(1)
+                
+            logging.info(f"Successfully retrieved {len(rows)} database records. Reconstructing data matrices...")
+            
+            # Map database columns back into parallel dictionaries
+            for row in rows:
+                # Format datetime object back to string structure expected by strptime loop
+                time_str = row[0].strftime("%Y-%m-%dT%H:%M")
+                hourly_dict["time"].append(time_str)
+                hourly_dict["temperature_2m"].append(float(row[1]))
+                hourly_dict["relative_humidity_2m"].append(float(row[2]))
+                hourly_dict["wind_direction_10m"].append(float(row[3]))
+                
+        conn.close()
+        return hourly_dict
+
+    except Exception as pg_err:
+        logging.error(f"PIPELINE TRANSFORM CRITICAL EXTRACT FAILURE: Failed to query PostgreSQL. Error: {pg_err}")
+        sys.exit(1)
+
 def run_transformation_pipeline():
     local_now = datetime.now(ZoneInfo("America/New_York"))
     today_date = local_now.strftime("%Y-%m-%d")
     logging.info(f"--- Launching Transform Phase for {today_date} ---")
     
-    # Target the file created by the Extract/Load phase
-    file_path = os.path.join("raw_json", f"forecast_{today_date}.json")
-    
-    if not os.path.exists(file_path):
-        logging.error(f"TRANSFORM CRITICAL ERROR: Staged data file not found at {file_path}. Aborting.")
-        sys.exit(1)
-        
-    try:
-        logging.info(f"Reading staged raw JSON payload data from local path: {file_path}")
-        with open(file_path, "r", encoding="utf-8") as f:
-            response_data = json.load(f)
-            
-        generation_time = response_data.get("generationtime_ms", "N/A")
-        utc_offset = response_data.get("utc_offset_seconds", 0)
-        logging.info(f"Local JSON parsed. Source server compute time: {generation_time}ms. Timezone offset: {utc_offset}s.")
-        
-        hourly = response_data["hourly"]
-        
-    except (json.JSONDecodeError, KeyError) as parse_err:
-        logging.error(f"PIPELINE TRANSFORM FAILURE: Staged JSON payload structure corrupt or invalid: {parse_err}")
-        sys.exit(1)
+    # Phase 1: Dynamic extraction from Cloud Postgres DB instead of local raw_json/ file
+    hourly = extract_hourly_from_postgresql(today_date)
 
+    # Phase 2: Exact same operational transformation algorithm
     shift_wind = []
     shift_temp = []
     shift_humidity = []
