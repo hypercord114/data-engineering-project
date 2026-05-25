@@ -10,6 +10,10 @@ jobs:
   run-stream:
     runs-on: ubuntu-latest
 
+    # Allows GitHub Actions to commit changes back into your repo
+    permissions:
+      contents: write
+
     steps:
     - name: Checkout Repository Code
       uses: actions/checkout@v4
@@ -23,16 +27,29 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements_producer.txt
-
+     
     - name: Extract Secure SSL Credentials from Secrets
       run: |
         mkdir -p ssl_credentials
         echo "${{ secrets.SSL_CA_PEM }}" > ssl_credentials/ca.pem
         echo "${{ secrets.SSL_CERT_PEM }}" > ssl_credentials/service.cert
         echo "${{ secrets.SSL_KEY_PEM }}" > ssl_credentials/service.key
-
+     
     - name: Execute Weather Scraping and Send Data Burst to Aiven
       env:
-        KAFKA_BROKER_URI: ${{ secrets.KAFKA_BROKER_URI }}
+        KAFKA_BROKER_URI: ${{ secrets.KAFKA_BROKER }}
       run: |
         python pid_producer.py
+
+    # --- NEW STEP: Save execution logs to your repository permanently ---
+    - name: Commit and Push Producer Operational Logs
+      run: |
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        
+        # Stage the new or updated log file
+        git add kafka_pipeline.log
+        
+        # Commit the log file with an updated timestamp
+        git commit -m "Automated Producer Log Update: $(date -u +'%Y-%m-%d %H:%M:%S') UTC" || true
+        git push
