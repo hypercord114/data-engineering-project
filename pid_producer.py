@@ -10,22 +10,25 @@ from zoneinfo import ZoneInfo
 from confluent_kafka import Producer
 
 # --- CONFIGURATION ---
-# Check for a GitHub Secret Environment Variable first, fallback to your hardcoded cluster URI
-KAFKA_BROKER = os.getenv("KAFKA_BROKER_URI", "...")  
+KAFKA_BROKER = os.getenv("KAFKA_BROKER_URI", "kafka-de-kjn0123-kel-6978.d.aivencloud.com:10961") 
 TOPIC_NAME = "intraday_pid_telemetry"
 
 LATITUDE = 42.8864
 LONGITUDE = -78.8784
 
+# --- UPDATED LOGGING CONFIGURATION ---
+# Appends logs to kafka_pipeline.log and mirrors output to standard stdout stream
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
-    handlers=[logging.StreamHandler(sys.stdout)]
+    handlers=[
+        logging.FileHandler("kafka_pipeline.log", encoding="utf-8"),
+        logging.StreamHandler(sys.stdout)
+    ]
 )
 
 COMPASS_NODES = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
 
-# Base sensor state configuration
 pid_sensors = {
     node_id: {
         "baseline": 65.0,
@@ -37,59 +40,46 @@ pid_sensors = {
 def get_live_downwind_direction():
     """ Fetches live wind direction from Buffalo and converts it to downwind target. """
     try:
-        url = f"https://api.open-meteo.com/v1/forecast?latitude={LATITUDE}&longitude={LONGITUDE}&current=wind_direction_10m&wind_speed_unit=mph"
-        response = requests.get(url, timeout=5)
-        data = response.json()
+        url = f"https://api.open-meteo.com/v1/forecast?latitude={LATITUDE}&longitude={LONGITUDE}&current=wind_direction_10m&timezone=auto"
+        res = requests.get(url, timeout=10)
+        res.raise_for_status()
+        data = res.json()
+        wind_deg = data["current"]["wind_direction_10m"]
         
-        wind_from_deg = data["current"]["wind_direction_10m"]
-        downwind_deg = (wind_from_deg + 180) % 360
+        idx = int((wind_deg + 22.5) / 45) % 8
+        upwind_dir = COMPASS_NODES[idx]
+        downwind_idx = (idx + 4) % 8
+        downwind_dir = COMPASS_NODES[downwind_idx]
         
-        idx = int((downwind_deg + 22.5) / 45) % 8
-        downwind_node = COMPASS_NODES[idx]
-        
-        logging.info(f"Weather Fetch -> Wind from: {wind_from_deg}°. Vapor plume dispersing TOWARD: {downwind_node} ({round(downwind_deg)}°)")
-        return downwind_node
+        logging.info(f"Current Buffalo Weather: Wind coming from {wind_deg}° ({upwind_dir}) -> Plume traveling Downwind toward: {downwind_dir}")
+        return downwind_dir
     except Exception as e:
-        logging.error(f"Weather API unavailable, defaulting dispersion path to NE. Error: {e}")
+        logging.error(f"Failed to fetch live wind metrics: {e}. Falling back to default baseline (NE).")
         return "NE"
 
-def delivery_report(err, msg):
-    if err is not None:
-        logging.error(f"Kafka Delivery Failed: {err}")
-    else:
-        pass # Suppress spamming 960 successful log confirmations to GitHub logs
-
-def generate_telemetry_batch(active_downwind_node, sim_time_string, active_event):
-    """ Simulates environmental data for a single point in simulated time. """
-    payloads = []
-    downwind_idx = COMPASS_NODES.index(active_downwind_node)
+def generate_telemetry_batch(downwind_target, sim_time_str, active_event):
+    batch = []
     
-    # 2.5% chance per simulated minute to trigger a process anomaly plume event
-    if not active_event["is_active"] and random.random() < 0.025:
-        logging.warning(f"[{sim_time_string}] !!! ALERT: Process leak initiated! Plume tracking toward {active_downwind_node} !!!")
+    if not active_event["is_active"] and random.random() < 0.15:
         active_event["is_active"] = True
-        active_event["cycles_left"] = random.randint(15, 45) # Plume lasts 15-45 minutes
+        active_event["cycles_left"] = random.randint(15, 35)
+        logging.info(f"[SIMULATION] Random emission spike started at {sim_time_str}. Duration: {active_event['cycles_left']} mins.")
 
-    for idx, node_id in enumerate(COMPASS_NODES):
-        state = pid_sensors[node_id]
+    for node in COMPASS_NODES:
+        state = pid_sensors[node]
         
-        if active_event["is_active"]:
-            distance_to_plume = min((idx - downwind_idx) % 8, (downwind_idx - idx) % 8)
-            
-            if distance_to_plume == 0:
-                state["current_val"] = random.uniform(350.0, 700.0)
-            elif distance_to_plume == 1:
-                state["current_val"] = random.uniform(120.0, 250.0)
-            else:
-                drift = random.uniform(-4.0, 4.0)
-                state["current_val"] = max(15.0, min(110.0, state["current_val"] + drift))
+        if active_event["is_active"] and node == downwind_target:
+            target_val = random.uniform(115.0, 145.0)
+            state["current_val"] += (target_val - state["current_val"]) * 0.3
         else:
-            drift = random.uniform(-5.0, 5.0)
-            state["current_val"] = max(15.0, min(110.0, state["current_val"] + drift))
+            state["current_val"] += (state["baseline"] - state["current_val"]) * 0.2
             
-        payloads.append({
-            "sensor_id": f"PID_NODE_{node_id}",
-            "timestamp": sim_time_string,
+        state["current_val"] += random.uniform(-1.5, 1.5)
+        state["current_val"] = max(0.0, state["current_val"])
+        
+        batch.append({
+            "sensor_id": f"PID-PERIMETER-{node}",
+            "timestamp": sim_time_str,
             "tvoc_ppb": round(state["current_val"], 1),
             "unit": "ppb"
         })
@@ -97,51 +87,48 @@ def generate_telemetry_batch(active_downwind_node, sim_time_string, active_event
     if active_event["is_active"]:
         active_event["cycles_left"] -= 1
         if active_event["cycles_left"] <= 0:
-            logging.info(f"[{sim_time_string}] Vapor plume successfully cleared from perimeter.")
             active_event["is_active"] = False
+            logging.info(f"[SIMULATION] Emission event dissipated natively at {sim_time_str}.")
+            
+    return batch
 
-    return payloads
+def delivery_report(err, msg):
+    if err is not None:
+        logging.error(f"Message delivery failed: {err}")
+    # Suppressing successful individual logs to keep the text file clean
 
 def run_producer():
-    logging.info("Initializing connection parameters to secure cloud Kafka cluster...")
+    logging.info("--- Starting Intraday 2-Hour Batch Telemetry Generation ---")
     
     conf = {
-            'bootstrap.servers': KAFKA_BROKER,
-            'security.protocol': 'SSL',
-            'ssl.ca.location': 'ssl_credentials/ca.pem',
-            'ssl.certificate.location': 'ssl_credentials/service.cert',
-            'ssl.key.location': 'ssl_credentials/service.key',
-            'client.id': 'buffalo-field-producer',
-            'queue.buffering.max.messages': 2000 
+        'bootstrap.servers': KAFKA_BROKER,
+        'security.protocol': 'SSL',
+        'ssl.ca.location': 'ssl_credentials/ca.pem',
+        'ssl.certificate.location': 'ssl_credentials/service.cert',
+        'ssl.key.location': 'ssl_credentials/service.key'
     }
     
     try:
         producer = Producer(conf)
-    except Exception as init_err:
-        logging.error(f"Could not build Kafka producer interface. Error: {init_err}")
+    except Exception as e:
+        logging.critical(f"Failed to initialize Kafka Producer instance: {e}")
         sys.exit(1)
-        
-    # Determine the downwind target vector via live scraping
+
     downwind_target = get_live_downwind_direction()
     
-    # --- TIME CALCULATIONS ---
-    # Capture the exact current moment in Buffalo timezone
-    current_time = datetime.now(ZoneInfo("America/New_York"))
-    # Backdate our simulation starting point by exactly 2 hours (120 minutes)
-    sim_start_time = current_time - timedelta(minutes=120)
+    ny_tz = ZoneInfo("America/New_York")
+    now_local = datetime.now(ny_tz)
+    sim_start_time = now_local - timedelta(minutes=120)
     
-    logging.info(f"Batch Processing Triggered. Simulating 120 minutes from {sim_start_time.strftime('%H:%M:%S')} to {current_time.strftime('%H:%M:%S')}...")
+    logging.info(f"Simulating telemetry window: {sim_start_time.strftime('%H:%M:%S')} to {now_local.strftime('%H:%M:%S')}")
     
-    # State tracker for transient gas leaks across the batch generation
     active_event = {"is_active": False, "cycles_left": 0}
     
     try:
-        # Loop exactly 120 times, advancing 1 minute per cycle
         for minute_offset in range(120):
             sim_moment = sim_start_time + timedelta(minutes=minute_offset)
             sim_time_str = sim_moment.strftime("%H:%M:%S")
             
-            # Generate measurements for all 8 sensors at this specific simulated timestamp
             telemetry_batch = generate_telemetry_batch(downwind_target, sim_time_str, active_event)
             
             for reading in telemetry_batch:
@@ -152,8 +139,6 @@ def run_producer():
                     value=serialized_data,
                     callback=delivery_report
                 )
-            
-            # Serve internal queue callbacks to keep processing memory clear
             producer.poll(0)
             
         logging.info("All 120 telemetry intervals successfully calculated and buffered.")
