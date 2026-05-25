@@ -1,0 +1,15 @@
+2026-05-25 15:45:48,036 [INFO] --- Starting Intraday 2-Hour Batch Telemetry Generation ---
+2026-05-25 15:45:48,495 [INFO] Current Buffalo Weather: Wind coming from 277° (W) -> Plume traveling Downwind toward: E
+2026-05-25 15:45:48,522 [INFO] Simulating telemetry window: 09:45:48 to 11:45:48
+2026-05-25 15:45:48,523 [INFO] [SIMULATION] Random emission spike started at 09:51:48. Duration: 16 mins.
+2026-05-25 15:45:48,524 [INFO] [SIMULATION] Emission event dissipated natively at 10:06:48.
+2026-05-25 15:45:48,524 [INFO] [SIMULATION] Random emission spike started at 10:12:48. Duration: 26 mins.
+2026-05-25 15:45:48,525 [INFO] [SIMULATION] Emission event dissipated natively at 10:37:48.
+2026-05-25 15:45:48,526 [INFO] [SIMULATION] Random emission spike started at 10:38:48. Duration: 22 mins.
+2026-05-25 15:45:48,527 [INFO] [SIMULATION] Emission event dissipated natively at 10:59:48.
+2026-05-25 15:45:48,527 [INFO] [SIMULATION] Random emission spike started at 11:01:48. Duration: 26 mins.
+2026-05-25 15:45:48,528 [INFO] [SIMULATION] Emission event dissipated natively at 11:26:48.
+2026-05-25 15:45:48,529 [INFO] [SIMULATION] Random emission spike started at 11:32:48. Duration: 22 mins.
+2026-05-25 15:45:48,530 [INFO] All 120 telemetry intervals successfully calculated and buffered.
+2026-05-25 15:45:48,530 [INFO] Flushing full historical payload burst to Aiven cloud broker...
+2026-05-25 15:46:03,530 [INFO] Batch streaming sequence finalized. Shutting down virtual workspace.
