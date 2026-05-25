@@ -1,0 +1,13 @@
+2026-05-25 23:41:07,062 [INFO] --- Launching Ingestion Phase for 2026-05-25 ---
+2026-05-25 23:41:07,062 [INFO] Extracting raw weather payload data from Open-Meteo API...
+2026-05-25 23:41:07,498 [INFO] Loading stage complete! Raw payload file successfully saved to: raw_json/forecast_2026-05-25.json
+2026-05-25 23:41:07,498 [INFO] Connecting to cloud Neon PostgreSQL database instance to archive JSONB document...
+2026-05-25 23:41:07,865 [INFO] Successfully committed complete JSONB document payload to cloud storage.
+2026-05-25 23:41:07,866 [INFO] Pipeline Execution Success: Raw payload archived to GitHub and flat arrays committed to PostgreSQL database.
+2026-05-25 23:41:08,075 [INFO] --- Launching Transform Phase for 2026-05-25 ---
+2026-05-25 23:41:08,075 [INFO] Connecting to cloud Neon PostgreSQL database instance to read metrics for 2026-05-25...
+2026-05-25 23:41:08,327 [INFO] Calculated Metrics from Staged JSONB Document: Temp: 62.3°F | Humid: 89.8% | Vector: 283.7° (WNW -> Downwind: ESE)
+2026-05-25 23:41:08,348 [INFO] Successfully stored summarized shift targets inside local DuckDB instance.
+2026-05-25 23:41:08,356 [INFO] --- Transform Stage Complete for 2026-05-25 ---
+2026-05-25 23:41:08,450 [INFO] Starting static dashboard generation (Template)...
+2026-05-25 23:41:08,459 [INFO] Dashboard template finalized. Output: index.html
