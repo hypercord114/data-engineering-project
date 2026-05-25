@@ -22,7 +22,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("kafka_pipeline.log", encoding="utf-8"),
+        logging.FileHandler("pipeline-logs/kafka_pipeline.log", encoding="utf-8"),
         logging.StreamHandler(sys.stdout)
     ]
 )
