@@ -8,7 +8,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("morning_pipeline.log", encoding="utf-8"),
+        logging.FileHandler("pipeline-logs/morning_pipeline.log", encoding="utf-8"),
         logging.StreamHandler(sys.stdout)
     ]
 )
