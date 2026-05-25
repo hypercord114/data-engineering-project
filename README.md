@@ -33,6 +33,7 @@ Still need to flesh out the star schema for the set of tables holding all the TV
 This environmental related project may turn noses.  Should probably do something financial related so that it will pique more interest...  This was just the first thing that came to my mind.
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 2026-05-25; well i think the entire pipeline works.  it works when i manually trigger the GitHub Actions anyway.  there are certainly kinks and idempotency issues to work out, but i'm going to leave it alone for now.
 
 i will create a more eloquent description soon, but BASICALLY what i'm doing is this:
