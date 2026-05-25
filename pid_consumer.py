@@ -24,7 +24,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("consumer_pipeline.log", encoding="utf-8"),
+        logging.FileHandler("pipeline-logs/consumer_pipeline.log", encoding="utf-8"),
         logging.StreamHandler(sys.stdout)
     ]
 )
