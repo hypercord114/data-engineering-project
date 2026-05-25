@@ -27,6 +27,13 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements_afternoon_pipeline.txt
 
+      - name: Extract Secure SSL Credentials from Secrets
+        run: |
+          mkdir -p ssl_credentials
+          echo "${{ secrets.SSL_CA_PEM }}" > ssl_credentials/ca.pem
+          echo "${{ secrets.SSL_CERT_PEM }}" > ssl_credentials/service.cert
+          echo "${{ secrets.SSL_KEY_PEM }}" > ssl_credentials/service.key
+
       - name: Run Afternoon Extract and Load
         env:
           POSTGRES_DB_URI: ${{ secrets.POSTGRES_DB_URI }}
