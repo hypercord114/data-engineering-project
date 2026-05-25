@@ -37,7 +37,7 @@ jobs:
      
     - name: Execute Weather Scraping and Send Data Burst to Aiven
       env:
-        KAFKA_BROKER_URI: ${{ secrets.KAFKA_BROKER }}
+        KAFKA_BROKER_URI: ${{ secrets.KAFKA_BROKER_URI }}
       run: |
         mkdir -p pipeline-logs
         python pid_producer.py
