@@ -1,0 +1,26 @@
+2026-05-22 00:54:09,420 [INFO] --- Launching Ingestion Phase for 2026-05-21 ---
+2026-05-22 00:54:09,420 [INFO] Extracting raw weather payload data from Open-Meteo API...
+2026-05-22 00:54:10,094 [INFO] Loading stage complete! Raw payload file successfully saved to: raw_json/forecast_2026-05-21.json
+2026-05-22 00:54:10,184 [INFO] --- Launching Transform Phase for 2026-05-21 ---
+2026-05-22 00:54:10,184 [INFO] Reading staged raw JSON payload data from local path: raw_json/forecast_2026-05-21.json
+2026-05-22 00:54:10,185 [INFO] Local JSON parsed. Source server compute time: 0.06699562072753906ms. Timezone offset: -14400s.
+2026-05-22 00:54:10,238 [INFO] Calculated Metrics from Staged Storage: Temp: 56.4F, Wind: 37.2 deg (NE), Humidity: 53.0%
+2026-05-22 00:54:10,253 [INFO] Successfully recorded new forecast data profile to local DuckDB file.
+2026-05-22 00:54:10,260 [INFO] --- ELT Transformation Sequence Finalized for 2026-05-21 ---
+2026-05-22 00:54:10,336 [INFO] --- Launching Dashboard Regeneration Step ---
+2026-05-22 00:54:10,336 [INFO] Querying latest environmental profile from environmental_data.db...
+2026-05-22 00:54:10,343 [INFO] Dashboard HTML content successfully bound and written to: index.html
+2026-05-22 00:54:10,343 [INFO] --- Dashboard Generation Phase Finalized ---
+2026-05-22 10:42:01,377 [INFO] --- Launching Ingestion Phase for 2026-05-22 ---
+2026-05-22 10:42:01,377 [INFO] Extracting raw weather payload data from Open-Meteo API...
+2026-05-22 10:42:01,840 [INFO] Loading stage complete! Raw payload file successfully saved to: raw_json/forecast_2026-05-22.json
+2026-05-22 10:42:01,932 [INFO] --- Launching Transform Phase for 2026-05-22 ---
+2026-05-22 10:42:01,932 [INFO] Reading staged raw JSON payload data from local path: raw_json/forecast_2026-05-22.json
+2026-05-22 10:42:01,933 [INFO] Local JSON parsed. Source server compute time: 0.6313323974609375ms. Timezone offset: -14400s.
+2026-05-22 10:42:01,959 [INFO] Calculated Metrics from Staged Storage: Temp: 59.6F, Wind: 65.4 deg (ENE), Humidity: 41.5%
+2026-05-22 10:42:01,972 [INFO] Successfully recorded new forecast data profile to local DuckDB file.
+2026-05-22 10:42:01,979 [INFO] --- ELT Transformation Sequence Finalized for 2026-05-22 ---
+2026-05-22 10:42:02,053 [INFO] --- Launching Dashboard Regeneration Step ---
+2026-05-22 10:42:02,054 [INFO] Querying latest environmental profile from environmental_data.db...
+2026-05-22 10:42:02,061 [INFO] Dashboard HTML content successfully bound and written to: index.html
+2026-05-22 10:42:02,061 [INFO] --- Dashboard Generation Phase Finalized ---
