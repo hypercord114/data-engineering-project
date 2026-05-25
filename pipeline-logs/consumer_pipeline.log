@@ -1,0 +1,20 @@
+2026-05-25 21:40:25,258 [INFO] Initializing connection parameters to secure cloud infrastructure...
+2026-05-25 21:40:25,538 [INFO] Successfully connected to Neon PostgreSQL. Destination schema verified.
+2026-05-25 21:40:25,541 [INFO] Kafka Consumer Engine Subscribed to Topic: 'intraday_pid_telemetry'. Listening for backlogged message stream...
+2026-05-25 21:40:50,298 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 147.7 ppb
+2026-05-25 21:40:50,787 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 141.3 ppb
+2026-05-25 21:40:51,279 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 131.7 ppb
+2026-05-25 21:40:51,772 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 129.2 ppb
+2026-05-25 21:40:52,264 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 132.8 ppb
+2026-05-25 21:40:53,247 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 150.1 ppb
+2026-05-25 21:40:53,736 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 177.9 ppb
+2026-05-25 21:40:54,721 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 136.4 ppb
+2026-05-25 21:40:55,214 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 137.0 ppb
+2026-05-25 21:40:56,194 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 143.9 ppb
+2026-05-25 21:40:56,684 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 130.1 ppb
+2026-05-25 21:40:57,174 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 141.0 ppb
+2026-05-25 21:40:57,664 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 141.2 ppb
+2026-05-25 21:41:58,126 [INFO] Topic drain window exceeded. No new data streams observed for 30s.
+2026-05-25 21:41:58,126 [INFO] Ecosystem indicates data catch-up phase complete.
+2026-05-25 21:41:58,126 [INFO] Draining phase finished. Total payload entries ingested and relationalized: 960
+2026-05-25 21:41:58,146 [INFO] Ecosystem clean shutdown verified. Runner workspace offline.
