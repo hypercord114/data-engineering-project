@@ -1,8 +1,9 @@
 name: Morning Shift Forecast ELT
 on:
   schedule:
-    # 8:00 AM UTC maps to exactly 4:00 AM EST (Monday - Friday)
-    - cron: '0 8 * * 1-5'
+    # 8:17 AM UTC maps to 4:17 AM EDT in Buffalo.
+    # Shifting away from minute '0' avoids the global peak congestion queue.
+    - cron: '17 8 * * 1-5'
   workflow_dispatch: # Allows you to trigger the job manually from the GitHub UI for testing
 
 env:
@@ -29,13 +30,16 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
+       
       # Step 1: Run Ingestion Step (Extract & Load)
       - name: Extract Raw JSON Weather Payload
         run: python morning_extract_and_load.py
 
       # Step 2: Run Processing Step (Transform & Load)
+      # --- FIXED STEP: Secrets added securely to execution context ---
       - name: Transform and Populate Target Tables
+        env:
+          POSTGRES_DB_URI: ${{ secrets.POSTGRES_DB_URI }}
         run: python morning_etl.py
 
       # Step 3: Run Visualization Step (Generate HTML Presentation Page)
