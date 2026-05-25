@@ -31,3 +31,22 @@ I've started setting up Kafka service and it seems to work so far.  May go back 
 Still need to flesh out the star schema for the set of tables holding all the TVOC measurements for the day.
 
 This environmental related project may turn noses.  Should probably do something financial related so that it will pique more interest...  This was just the first thing that came to my mind.
+
+2026-05-25; well i think the entire pipeline works.  it works when i manually trigger the GitHub Actions anyway.  there are certainly kinks and idempotency issues to work out, but i'm going to leave it alone for now.
+
+i will create a more eloquent description soon, but BASICALLY what i'm doing is this:
+
+MORNING PIPELINE - triggered by YAML file at 4:13AM New York time
++ morning_extract_and_load.py: collects Open Meteo API and stages it in raw_json/ folder.  also uploads unformatted JSONB object into PostgreSQL database hosted on Neon.com.  writes logging info to morning_pipeline.log in pipeline-logs/ folder.
++ morning_etl.py: reads JSONB file from Neon.com, calculates predicted average value for day's temperature, humidity and wind direction.  appropriate calculation used for average wind direction calculation.  relevant data is input to DuckDB database table for shift forecasts.  writes logging info to morning_pipeline.log in pipeline-logs/ folder.
++ generate dashboard.py: queries DuckDB shift forecast table, parses out values for the current date, and write an HTML webpage.  this script only posts the predicted values for the day in cells at the top of the webpage.  writes logging info to morning_pipeline.log in pipeline-logs/ folder.
+
+KAFKA PIPELINE - triggered every 2 hours starting at 9:00AM New York time; consumer script YAML is dependent on producer script YAML
++ pid_producer.py: calls Open Meteo API and extracts current wind direction, then generates simulated TVOC measurements for eight PID nodes at all eight cardinal directions (N, NE, E, SE, S, SW, W, NW).  PID nodes downwind of current wind direction are subject to increased chance of elevated TVOC measurements, simulating real effect of wind direction of excation where TVOC vapors are released.  the PID data is fed to KAFKA server producer in bursts, 120 measurements per instrument, simulating two hours of measurements.
++ pid_consumer.py: accesses Kafka producer, listens, and collects either all messages from earliest message from the day or all messages since last group login.  raw message data is superficially parsed and fed into Neon.com PostgreSQL server.  a table is created specific to the current date and the raw message data is appended to that table for the duraction of the current day.
+
+AFTERNOON PIPELINE - triggered at 6:18PM New York time
++ afternoon_extract_and_load.py: same as morning_extract_and_load.py, except the API call pulls all of the observed weather measurements for the day.  stages raw JSON file in raw_json/ folder, then uploads JSONB file to Neon.com PostgreSQL database under table name shift-weather-observed.
++ afternoon_etl.py: big meaty file.  sets up star schema fact tables and dimension tables for each PID node (need to adjust this, don't need to adjust most of the dim tables cyclically) in DuckDB database, reads raw measurement data from current day's PID measurement table on Neon.com PostgreSQL database, extrapolates data into instrument specific datasets, then populates the instrument specific fact tables in DuckDB database.  need to toy with adjusting the calibration tables cyclically but leaving the other dim tables as static data (instrument specs and location info).  finally, once all the data is extracted from the PostgreSQL database, the Kafka topic is reset for the following day.
++ afternoon_generate_dashboard.py: reads all the instrument specific measurements for today's date out of the fact tables in DuckDB database as well as the observed weather measurements from the observed table in the DuckDB database and updates the index.html webpage with line graphs for each instrument and values for the observed weather measurements.
+
