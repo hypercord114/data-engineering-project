@@ -69,12 +69,12 @@ def build_dashboard():
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 shadow-md">
-                <span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Predicted Shift Temp</span>
+                <span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Predicted Avg Shift Temp</span>
                 <div class="text-3xl font-bold mt-1 text-amber-400">{temp}°F</div>
             </div>
             
             <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 shadow-md">
-                <span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Predicted Wind Path</span>
+                <span class="text-xs uppercase tracking-wider text-slate-500 font-semibold">Predicted Avg Wind Path</span>
                 <div class="text-3xl font-bold mt-1 text-sky-400">{wind_deg}° ({upwind})</div>
                 <div class="text-xs text-slate-500 mt-0.5">Downwind Exposure Path: {downwind}</div>
             </div>
