@@ -42,6 +42,6 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add index.html pipeline-logs.afternoon_pipeline.log environmental_data.db raw_json/
+          git add index.html pipeline-logs/afternoon_pipeline.log environmental_data.db raw_json/
           git commit -m "chore: auto-update afternoon dashboard [skip ci]" || echo "No changes to commit"
           git push
