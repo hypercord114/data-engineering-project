@@ -39,7 +39,7 @@ jobs:
      
     - name: Run Catch-Up Telemetry Ingestion Pipeline
       env:
-        KAFKA_BROKER_URI: ${{ secrets.KAFKA_BROKER }}
+        KAFKA_BROKER_URI: ${{ secrets.KAFKA_BROKER_URI }}
         POSTGRES_DB_URI: ${{ secrets.POSTGRES_DB_URI }}
       run: |
         mkdir -p pipeline-logs
