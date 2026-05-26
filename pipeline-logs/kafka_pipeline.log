@@ -9,3 +9,16 @@
 2026-05-25 23:41:51,177 [INFO] All 120 telemetry intervals successfully calculated and buffered.
 2026-05-25 23:41:51,177 [INFO] Flushing full historical payload burst to Aiven cloud broker...
 2026-05-25 23:41:52,210 [INFO] Data injection phase complete. Producer context offline.
+2026-05-26 13:54:10,806 [INFO] Connecting to a secure cloud-managed Aiven Kafka instance...
+2026-05-26 13:54:16,921 [ERROR] Failed to fetch downwind target zone via API. Falling back to default baseline: 502 Server Error: Bad Gateway for url: https://api.open-meteo.com/v1/forecast?latitude=42.8864&longitude=-78.8784&hourly=wind_direction_10m&forecast_days=1&timezone=auto
+2026-05-26 13:54:16,927 [INFO] Simulating telemetry window: 07:54:16 to 09:54:16
+2026-05-26 13:54:16,929 [INFO] --- [PLUME TRANSIENT INTERCEPT] Vapor breakthrough simulated heading downwind towards NE ---
+2026-05-26 13:54:16,931 [INFO] --- [PLUME TRANSIENT RESOLVED] Vapor concentrations returned to environmental baseline. ---
+2026-05-26 13:54:16,932 [INFO] --- [PLUME TRANSIENT INTERCEPT] Vapor breakthrough simulated heading downwind towards NE ---
+2026-05-26 13:54:16,933 [INFO] --- [PLUME TRANSIENT RESOLVED] Vapor concentrations returned to environmental baseline. ---
+2026-05-26 13:54:16,934 [INFO] --- [PLUME TRANSIENT INTERCEPT] Vapor breakthrough simulated heading downwind towards NE ---
+2026-05-26 13:54:16,936 [INFO] --- [PLUME TRANSIENT RESOLVED] Vapor concentrations returned to environmental baseline. ---
+2026-05-26 13:54:16,938 [INFO] --- [PLUME TRANSIENT INTERCEPT] Vapor breakthrough simulated heading downwind towards NE ---
+2026-05-26 13:54:16,939 [INFO] All 120 telemetry intervals successfully calculated and buffered.
+2026-05-26 13:54:16,939 [INFO] Flushing full historical payload burst to Aiven cloud broker...
+2026-05-26 13:54:18,364 [INFO] Data injection phase complete. Producer context offline.
