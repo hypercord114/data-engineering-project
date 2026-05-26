@@ -29,7 +29,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements_morning_pipeline.txt
-       
+  
       # Step 1: Run Ingestion Step (Extract & Load)
       # --- FIXED: Directory created HERE so Step 1 script can safely initialize its log handle ---
       - name: Extract Raw JSON Weather Payload
@@ -45,7 +45,7 @@ jobs:
           POSTGRES_DB_URI: ${{ secrets.POSTGRES_DB_URI }}
         run: |
           python morning_etl.py
-       
+
       # Step 3: Run Visualization Step (Generate HTML Presentation Page)
       - name: Regenerate Operational Dashboard File
         run: python generate_dashboard.py
@@ -55,9 +55,9 @@ jobs:
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          
+
           # Consolidated tracking line captures raw landing zones, DBs, logs, and Web pages
           git add environmental_data.db pipeline-logs/morning_pipeline.log raw_json/ index.html
-          
+
           git commit -m "Automated Data Lake, DB & Dashboard Run: $(date -u +'%Y-%m-%d %H:%M:%S') UTC" || true
           git push
