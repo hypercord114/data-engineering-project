@@ -1,4 +1,4 @@
-name: Morning Shift Forecast ELT
+name: Scheduled Morning Shift Forecast ELT
 on:
   schedule:
     # 8:17 AM UTC maps to 4:17 AM EDT in Buffalo.
