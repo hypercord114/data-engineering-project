@@ -1,4 +1,4 @@
-name: Afternoon ETL and Dashboard Pipeline
+name: Scheduled Afternoon ETL and Dashboard Pipeline
 
 on:
   schedule:
