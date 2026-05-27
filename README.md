@@ -56,6 +56,8 @@ AFTERNOON PIPELINE - triggered at 6:23PM New York time
 
 2026-05-26; hmm...  still wrestling with getting the GitHub Actions to trigger the scripts on time and at all.  the kafka scripts, named "Scheduled..." seem to be getting triggered but the morning and afternoon ETL pipelines are not being triggered.  did a lot of investigating and still don't know why.  i tried renaming the morning and afternoon pipeline YAML files to "Scheduled Morning ETL...", etc.  the YAML files run fine when manually triggered.  will keep an eye on this tomorrow.
 
+i bet if i paid for an airflow server it would run fine...  or maybe not...
+
 the other problem is, the consumer log file seems to indicate that at least 8 hours of data, or 6720 rows of data were collected.  if each burst generates 960 rows simulating 2 hours, and 6720 divided by 960 equals 7...  that means there was 14 hours of data produced...  right?  each burst should generate 960 rows of data, but the consumer log indicates it is collecting double and triple that sometimes.  nonetheless, the graphs generated in the dashboard after the afternoon pipeline YAML is manually triggered only graphs data from 7:54AM to 3:11PM...  that's only 7 hours of data...  so, there is a potential idempotency issue.
 
 probably what is happening is the consumer is not logging its collections properly, and is reading the entire day's data when logging in a second or third time.  though the collections are 960, 1920, 2880, 960 again at the end...  so...  yeh i dunno what is happening.  need to review the consumer script.
