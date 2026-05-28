@@ -45,6 +45,14 @@ def create_telemetry_table_if_not_exists(db_conn, table_name):
                     processed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );"""
         cur.execute(query)
+
+        # Fixing idempotency issue in PSQL database with constraint and upsert
+        try:
+            constraint = f'ALTER TABLE "{table_name}" ADD CONSTRAINT unique_idts UNIQUE (sensor_id, reading_timestamp);'
+            cur.execute(constraint)
+        except psycopg2.errors.DuplicateObject:
+            db_conn.rollback()
+        
         db_conn.commit()
 
 def insert_telemetry_record(db_conn, record_dict, table_name):
@@ -52,7 +60,11 @@ def insert_telemetry_record(db_conn, record_dict, table_name):
     try:
         with db_conn.cursor() as cur:
                 # Wrap table_name in double quotes to handle hyphens in the date
-                query = f'INSERT INTO "{table_name}" (sensor_id, reading_timestamp, tvoc_ppb) VALUES (%s, %s, %s);'
+                query = f'''
+                    INSERT INTO "{table_name}" (sensor_id, reading_timestamp, tvoc_ppb)
+                    VALUES (%s, %s, %s)
+                    ON CONFLICT (sensor_id, reading_timestamp) DO NOTHING;
+                '''
                 
                 # Corrected: Using record_dict as the source for values
                 cur.execute(query, (
