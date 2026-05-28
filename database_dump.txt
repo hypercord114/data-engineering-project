@@ -1,0 +1,36 @@
+==================================================
+      ENVIRONMENTAL DATABASE RECORD DUMP         
+==================================================
+
+--- Record Date: 2026-05-28 ---
+  predicted_avg_temp_f: 63.6
+  predicted_avg_wind_deg: 351.8
+  predicted_avg_humidity_pct: 53.5
+  upwind_cardinal: N
+  downwind_cardinal: S
+  processed_at: 2026-05-28 07:51:19.795000
+
+--- Record Date: 2026-05-27 ---
+  predicted_avg_temp_f: 63.9
+  predicted_avg_wind_deg: 222.3
+  predicted_avg_humidity_pct: 67.6
+  upwind_cardinal: SW
+  downwind_cardinal: NE
+  processed_at: 2026-05-27 07:49:45.237000
+
+--- Record Date: 2026-05-26 ---
+  predicted_avg_temp_f: 68.2
+  predicted_avg_wind_deg: 214.2
+  predicted_avg_humidity_pct: 64.3
+  upwind_cardinal: SW
+  downwind_cardinal: NE
+  processed_at: 2026-05-26 09:08:25.881000
+
+--- Record Date: 2026-05-25 ---
+  predicted_avg_temp_f: 62.3
+  predicted_avg_wind_deg: 283.7
+  predicted_avg_humidity_pct: 89.8
+  upwind_cardinal: WNW
+  downwind_cardinal: ESE
+  processed_at: 2026-05-25 19:41:08.346000
+
