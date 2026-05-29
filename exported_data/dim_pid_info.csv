@@ -1,0 +1,9 @@
+pid_id,sensor_model,detection_limit_ppb,baseline_ppb
+PID_N,MiniPID 2,10000.0,65.0
+PID_NE,MiniPID 2,10000.0,65.0
+PID_E,MiniPID 2,10000.0,65.0
+PID_SE,MiniPID 2,10000.0,65.0
+PID_S,MiniPID 2,10000.0,65.0
+PID_SW,MiniPID 2,10000.0,65.0
+PID_W,MiniPID 2,10000.0,65.0
+PID_NW,MiniPID 2,10000.0,65.0

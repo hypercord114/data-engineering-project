@@ -1,0 +1,9 @@
+location_id,compass_heading,latitude,longitude,zone_description
+LOC_N,N,42.8864,-78.8784,Perimeter Monitoring Boundary Node - N
+LOC_NE,NE,42.8864,-78.8784,Perimeter Monitoring Boundary Node - NE
+LOC_E,E,42.8864,-78.8784,Perimeter Monitoring Boundary Node - E
+LOC_SE,SE,42.8864,-78.8784,Perimeter Monitoring Boundary Node - SE
+LOC_S,S,42.8864,-78.8784,Perimeter Monitoring Boundary Node - S
+LOC_SW,SW,42.8864,-78.8784,Perimeter Monitoring Boundary Node - SW
+LOC_W,W,42.8864,-78.8784,Perimeter Monitoring Boundary Node - W
+LOC_NW,NW,42.8864,-78.8784,Perimeter Monitoring Boundary Node - NW

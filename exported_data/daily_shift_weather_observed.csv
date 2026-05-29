@@ -1,0 +1,5 @@
+forecast_date,observed_avg_temp_f,observed_avg_wind_deg,observed_avg_humidity_pct,upwind_cardinal,downwind_cardinal,processed_at
+2026-05-25,62.3,283.7,89.8,WNW,ESE,2026-05-25 23:46:29.711269
+2026-05-26,70.6,218.7,58.3,SW,NE,2026-05-26 20:28:26.131735
+2026-05-27,71.1,241.7,57.6,WSW,ENE,2026-05-27 20:31:09.539133
+2026-05-28,63.1,346.4,57.1,NNW,SSE,2026-05-28 20:40:06.46986
