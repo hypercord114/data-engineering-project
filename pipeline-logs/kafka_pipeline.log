@@ -172,3 +172,12 @@
 2026-06-02 17:13:06,519 [INFO] All 120 telemetry intervals successfully calculated and buffered.
 2026-06-02 17:13:06,519 [INFO] Flushing full historical payload burst to Aiven cloud broker...
 2026-06-02 17:13:07,078 [INFO] Data injection phase complete. Producer context offline.
+2026-06-02 21:39:09,328 [INFO] Connecting to a secure cloud-managed Aiven Kafka instance...
+2026-06-02 21:39:09,829 [INFO] Meteorological context sync: Wind blowing towards downwind sector NE (247° raw input).
+2026-06-02 21:39:09,831 [INFO] Simulating telemetry window: 15:39:09 to 17:39:09
+2026-06-02 21:39:09,832 [INFO] --- [PLUME TRANSIENT INTERCEPT] Vapor breakthrough simulated heading downwind towards NE ---
+2026-06-02 21:39:09,834 [INFO] --- [PLUME TRANSIENT RESOLVED] Vapor concentrations returned to environmental baseline. ---
+2026-06-02 21:39:09,838 [INFO] --- [PLUME TRANSIENT INTERCEPT] Vapor breakthrough simulated heading downwind towards NE ---
+2026-06-02 21:39:09,840 [INFO] All 120 telemetry intervals successfully calculated and buffered.
+2026-06-02 21:39:09,840 [INFO] Flushing full historical payload burst to Aiven cloud broker...
+2026-06-02 21:39:10,627 [INFO] Data injection phase complete. Producer context offline.
