@@ -80,6 +80,6 @@ one last thing...  i was thinking, given the continuous LATENESS of when my pipe
 
 i COULD chase making this look perfect by changing the producer script to give one single burst of 600 measurements per instrument at one time during the day, and i COULD change the data storage to parquet files so that i can load the graphs into a PowerBI dashboard, but i'm not going to do that.  instead i'm going to move on to another project that does those things separately.
 
-i think this project is demonstrative of my ability to work with continuously generated API data, a Kafka server, the concept of orchestation using dependent YAML files, PSQL storage and MySQL store.  i have some idempotency logic in here too.  overall not bad.
+i think this project is demonstrative of my ability to work with continuously generated API data, a Kafka server, the concept of orchestation using dependent YAML files, PSQL storage and MySQL storage.  i have some idempotency circumvention logic in here too.  overall not bad.
 
 next project will revolve specifically around using PySpark and MLlib.  i'll set it up as a pipeline, but it will only be processing a single dataset.
