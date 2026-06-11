@@ -2,6 +2,7 @@ import os
 import sys
 import logging
 import requests
+import time
 import json  # Added to parse the JSON text string
 import psycopg2  # Added to manage connection to PostgreSQL
 from datetime import datetime
