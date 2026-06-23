@@ -4398,3 +4398,13 @@
 2026-06-22 18:53:28,432 [INFO] Ecosystem indicates data catch-up phase complete.
 2026-06-22 18:53:28,433 [INFO] Draining phase finished. Total payload entries ingested and relationalized: 1920
 2026-06-22 18:53:28,499 [INFO] Ecosystem clean shutdown verified. Runner workspace offline.
+2026-06-23 12:11:06,079 [INFO] Initializing connection parameters to secure cloud infrastructure...
+2026-06-23 12:11:06,917 [INFO] Successfully connected to Neon PostgreSQL. Destination schema verified.
+2026-06-23 12:11:06,921 [INFO] Kafka Consumer Engine Subscribed to Topic: 'intraday_pid_telemetry'. Listening for backlogged message stream...
+2026-06-23 12:12:10,287 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-SE: 122.2 ppb
+2026-06-23 12:12:11,312 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-SE: 135.3 ppb
+2026-06-23 12:12:11,827 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-SE: 129.9 ppb
+2026-06-23 12:12:42,088 [INFO] Topic drain window exceeded. No new data streams observed for 30s.
+2026-06-23 12:12:42,088 [INFO] Ecosystem indicates data catch-up phase complete.
+2026-06-23 12:12:42,088 [INFO] Draining phase finished. Total payload entries ingested and relationalized: 960
+2026-06-23 12:12:42,108 [INFO] Ecosystem clean shutdown verified. Runner workspace offline.
