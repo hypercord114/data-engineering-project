@@ -5745,3 +5745,41 @@
 2026-06-30 19:02:35,821 [INFO] Ecosystem indicates data catch-up phase complete.
 2026-06-30 19:02:35,821 [INFO] Draining phase finished. Total payload entries ingested and relationalized: 2880
 2026-06-30 19:02:35,872 [INFO] Ecosystem clean shutdown verified. Runner workspace offline.
+2026-07-01 12:12:04,436 [INFO] Initializing connection parameters to secure cloud infrastructure...
+2026-07-01 12:12:05,458 [INFO] Successfully connected to Neon PostgreSQL. Destination schema verified.
+2026-07-01 12:12:05,463 [INFO] Kafka Consumer Engine Subscribed to Topic: 'intraday_pid_telemetry'. Listening for backlogged message stream...
+2026-07-01 12:12:25,994 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 190.6 ppb
+2026-07-01 12:12:26,977 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 140.4 ppb
+2026-07-01 12:12:28,002 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 147.2 ppb
+2026-07-01 12:12:30,003 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 120.0 ppb
+2026-07-01 12:12:30,998 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 144.0 ppb
+2026-07-01 12:12:31,990 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 138.6 ppb
+2026-07-01 12:12:32,990 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 122.3 ppb
+2026-07-01 12:12:34,000 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 125.6 ppb
+2026-07-01 12:12:35,001 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 164.9 ppb
+2026-07-01 12:12:36,018 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 130.6 ppb
+2026-07-01 12:12:37,025 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 192.8 ppb
+2026-07-01 12:12:38,025 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 125.0 ppb
+2026-07-01 12:12:39,028 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 153.1 ppb
+2026-07-01 12:12:40,016 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 137.5 ppb
+2026-07-01 12:12:41,003 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 134.8 ppb
+2026-07-01 12:12:41,994 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 166.8 ppb
+2026-07-01 12:12:42,989 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 170.8 ppb
+2026-07-01 12:12:43,986 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 142.9 ppb
+2026-07-01 12:13:14,632 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 137.5 ppb
+2026-07-01 12:13:15,641 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 166.2 ppb
+2026-07-01 12:13:16,643 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 193.9 ppb
+2026-07-01 12:13:18,594 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 133.3 ppb
+2026-07-01 12:13:19,593 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 164.0 ppb
+2026-07-01 12:13:20,581 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 179.9 ppb
+2026-07-01 12:13:21,595 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 185.8 ppb
+2026-07-01 12:13:22,611 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 131.6 ppb
+2026-07-01 12:13:24,676 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 125.7 ppb
+2026-07-01 12:13:25,656 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 136.0 ppb
+2026-07-01 12:13:26,631 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 162.6 ppb
+2026-07-01 12:13:27,643 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 126.6 ppb
+2026-07-01 12:13:28,661 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 141.4 ppb
+2026-07-01 12:14:40,253 [INFO] Topic drain window exceeded. No new data streams observed for 30s.
+2026-07-01 12:14:40,253 [INFO] Ecosystem indicates data catch-up phase complete.
+2026-07-01 12:14:40,253 [INFO] Draining phase finished. Total payload entries ingested and relationalized: 960
+2026-07-01 12:14:40,337 [INFO] Ecosystem clean shutdown verified. Runner workspace offline.
