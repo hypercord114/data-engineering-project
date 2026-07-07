@@ -6890,3 +6890,23 @@
 2026-07-06 19:03:08,160 [INFO] Ecosystem indicates data catch-up phase complete.
 2026-07-06 19:03:08,160 [INFO] Draining phase finished. Total payload entries ingested and relationalized: 2880
 2026-07-06 19:03:08,193 [INFO] Ecosystem clean shutdown verified. Runner workspace offline.
+2026-07-07 11:56:11,636 [INFO] Initializing connection parameters to secure cloud infrastructure...
+2026-07-07 11:56:12,889 [INFO] Successfully connected to Neon PostgreSQL. Destination schema verified.
+2026-07-07 11:56:12,892 [INFO] Kafka Consumer Engine Subscribed to Topic: 'intraday_pid_telemetry'. Listening for backlogged message stream...
+2026-07-07 11:56:18,435 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-SW: 124.2 ppb
+2026-07-07 11:56:18,722 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-SW: 125.7 ppb
+2026-07-07 11:56:19,007 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-SW: 133.9 ppb
+2026-07-07 11:56:19,292 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-SW: 133.8 ppb
+2026-07-07 11:56:19,577 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-SW: 160.6 ppb
+2026-07-07 11:56:19,863 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-SW: 151.6 ppb
+2026-07-07 11:56:20,430 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-SW: 129.0 ppb
+2026-07-07 11:56:20,716 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-SW: 127.7 ppb
+2026-07-07 11:56:21,014 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-SW: 160.1 ppb
+2026-07-07 11:56:21,588 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-SW: 139.4 ppb
+2026-07-07 11:56:21,876 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-SW: 127.5 ppb
+2026-07-07 11:56:22,162 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-SW: 180.7 ppb
+2026-07-07 11:56:23,021 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-SW: 144.4 ppb
+2026-07-07 11:57:21,862 [INFO] Topic drain window exceeded. No new data streams observed for 30s.
+2026-07-07 11:57:21,863 [INFO] Ecosystem indicates data catch-up phase complete.
+2026-07-07 11:57:21,863 [INFO] Draining phase finished. Total payload entries ingested and relationalized: 960
+2026-07-07 11:57:21,940 [INFO] Ecosystem clean shutdown verified. Runner workspace offline.
