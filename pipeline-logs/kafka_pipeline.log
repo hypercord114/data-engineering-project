@@ -974,3 +974,9 @@
 2026-07-13 12:11:01,217 [INFO] All 120 telemetry intervals successfully calculated and buffered.
 2026-07-13 12:11:01,217 [INFO] Flushing full historical payload burst to Aiven cloud broker...
 2026-07-13 12:11:02,694 [INFO] Data injection phase complete. Producer context offline.
+2026-07-13 15:44:24,875 [INFO] Connecting to a secure cloud-managed Aiven Kafka instance...
+2026-07-13 15:44:25,496 [INFO] Meteorological context sync: Wind blowing towards downwind sector NE (227° raw input).
+2026-07-13 15:44:25,501 [INFO] Simulating telemetry window: 09:44:25 to 11:44:25
+2026-07-13 15:44:25,509 [INFO] All 120 telemetry intervals successfully calculated and buffered.
+2026-07-13 15:44:25,509 [INFO] Flushing full historical payload burst to Aiven cloud broker...
+2026-07-13 15:44:26,614 [INFO] Data injection phase complete. Producer context offline.
