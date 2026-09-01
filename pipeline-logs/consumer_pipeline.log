@@ -23465,3 +23465,60 @@
 2026-08-31 21:57:21,740 [INFO] Ecosystem indicates data catch-up phase complete.
 2026-08-31 21:57:21,740 [INFO] Draining phase finished. Total payload entries ingested and relationalized: 1920
 2026-08-31 21:57:21,811 [INFO] Ecosystem clean shutdown verified. Runner workspace offline.
+2026-09-01 14:02:52,786 [INFO] Initializing connection parameters to secure cloud infrastructure...
+2026-09-01 14:02:53,729 [INFO] Successfully connected to Neon PostgreSQL. Destination schema verified.
+2026-09-01 14:02:53,733 [INFO] Kafka Consumer Engine Subscribed to Topic: 'intraday_pid_telemetry'. Listening for backlogged message stream...
+2026-09-01 14:03:12,001 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 122.3 ppb
+2026-09-01 14:03:12,652 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 154.2 ppb
+2026-09-01 14:03:13,301 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 148.4 ppb
+2026-09-01 14:03:13,952 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 197.2 ppb
+2026-09-01 14:03:14,602 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 145.5 ppb
+2026-09-01 14:03:15,904 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 139.8 ppb
+2026-09-01 14:03:16,562 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 179.7 ppb
+2026-09-01 14:03:17,217 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 183.1 ppb
+2026-09-01 14:03:17,867 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 143.2 ppb
+2026-09-01 14:03:18,519 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 139.0 ppb
+2026-09-01 14:03:19,176 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 144.9 ppb
+2026-09-01 14:03:20,488 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 121.2 ppb
+2026-09-01 14:03:21,138 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 128.5 ppb
+2026-09-01 14:03:21,793 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 158.5 ppb
+2026-09-01 14:03:22,444 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 131.1 ppb
+2026-09-01 14:03:23,098 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 161.2 ppb
+2026-09-01 14:03:23,750 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 154.5 ppb
+2026-09-01 14:03:24,487 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 145.7 ppb
+2026-09-01 14:03:25,218 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 138.4 ppb
+2026-09-01 14:03:25,885 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 189.6 ppb
+2026-09-01 14:03:26,537 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 161.7 ppb
+2026-09-01 14:03:27,187 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 130.6 ppb
+2026-09-01 14:03:27,840 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 180.1 ppb
+2026-09-01 14:03:28,495 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 127.3 ppb
+2026-09-01 14:03:29,159 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 126.5 ppb
+2026-09-01 14:03:38,364 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 161.9 ppb
+2026-09-01 14:03:39,665 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 134.5 ppb
+2026-09-01 14:03:40,322 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 130.5 ppb
+2026-09-01 14:03:41,634 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 123.1 ppb
+2026-09-01 14:03:42,938 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 145.1 ppb
+2026-09-01 14:03:43,587 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 138.9 ppb
+2026-09-01 14:03:44,238 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 135.5 ppb
+2026-09-01 14:03:45,546 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 160.4 ppb
+2026-09-01 14:03:46,196 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 137.7 ppb
+2026-09-01 14:03:46,846 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 127.7 ppb
+2026-09-01 14:03:47,496 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 172.8 ppb
+2026-09-01 14:03:48,152 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 125.1 ppb
+2026-09-01 14:03:48,806 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 146.2 ppb
+2026-09-01 14:03:50,122 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 134.6 ppb
+2026-09-01 14:03:51,451 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 174.8 ppb
+2026-09-01 14:03:52,105 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 121.8 ppb
+2026-09-01 14:03:52,756 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 122.3 ppb
+2026-09-01 14:03:54,060 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 135.7 ppb
+2026-09-01 14:03:54,711 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 140.9 ppb
+2026-09-01 14:03:56,069 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 146.3 ppb
+2026-09-01 14:03:56,787 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 132.8 ppb
+2026-09-01 14:03:58,169 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 127.3 ppb
+2026-09-01 14:03:58,820 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 173.1 ppb
+2026-09-01 14:03:59,471 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 127.4 ppb
+2026-09-01 14:04:00,122 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NE: 139.6 ppb
+2026-09-01 14:04:47,000 [INFO] Topic drain window exceeded. No new data streams observed for 30s.
+2026-09-01 14:04:47,000 [INFO] Ecosystem indicates data catch-up phase complete.
+2026-09-01 14:04:47,000 [INFO] Draining phase finished. Total payload entries ingested and relationalized: 960
+2026-09-01 14:04:47,102 [INFO] Ecosystem clean shutdown verified. Runner workspace offline.
