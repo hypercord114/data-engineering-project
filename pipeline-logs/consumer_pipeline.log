@@ -26993,3 +26993,10 @@
 2026-10-07 21:54:18,813 [INFO] Ecosystem indicates data catch-up phase complete.
 2026-10-07 21:54:18,813 [INFO] Draining phase finished. Total payload entries ingested and relationalized: 1920
 2026-10-07 21:54:18,869 [INFO] Ecosystem clean shutdown verified. Runner workspace offline.
+2026-10-08 16:15:38,225 [INFO] Initializing connection parameters to secure cloud infrastructure...
+2026-10-08 16:15:39,067 [INFO] Successfully connected to Neon PostgreSQL. Destination schema verified.
+2026-10-08 16:15:39,071 [INFO] Kafka Consumer Engine Subscribed to Topic: 'intraday_pid_telemetry'. Listening for backlogged message stream...
+2026-10-08 16:17:14,785 [INFO] Topic drain window exceeded. No new data streams observed for 30s.
+2026-10-08 16:17:14,786 [INFO] Ecosystem indicates data catch-up phase complete.
+2026-10-08 16:17:14,786 [INFO] Draining phase finished. Total payload entries ingested and relationalized: 960
+2026-10-08 16:17:14,814 [INFO] Ecosystem clean shutdown verified. Runner workspace offline.
