@@ -29220,3 +29220,59 @@
 2026-10-30 21:26:08,935 [INFO] Ecosystem indicates data catch-up phase complete.
 2026-10-30 21:26:08,935 [INFO] Draining phase finished. Total payload entries ingested and relationalized: 1920
 2026-10-30 21:26:08,982 [INFO] Ecosystem clean shutdown verified. Runner workspace offline.
+2026-11-02 19:20:41,148 [INFO] Initializing connection parameters to secure cloud infrastructure...
+2026-11-02 19:20:42,104 [INFO] Successfully connected to Neon PostgreSQL. Destination schema verified.
+2026-11-02 19:20:42,107 [INFO] Kafka Consumer Engine Subscribed to Topic: 'intraday_pid_telemetry'. Listening for backlogged message stream...
+2026-11-02 19:20:58,540 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 147.3 ppb
+2026-11-02 19:21:00,073 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 126.4 ppb
+2026-11-02 19:21:00,838 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 147.9 ppb
+2026-11-02 19:21:01,610 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 153.9 ppb
+2026-11-02 19:21:03,141 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 143.9 ppb
+2026-11-02 19:21:03,905 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 157.9 ppb
+2026-11-02 19:21:04,671 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 122.1 ppb
+2026-11-02 19:21:05,435 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 138.5 ppb
+2026-11-02 19:21:06,202 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 178.8 ppb
+2026-11-02 19:21:06,967 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 169.5 ppb
+2026-11-02 19:21:08,496 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 134.5 ppb
+2026-11-02 19:21:09,260 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 149.4 ppb
+2026-11-02 19:21:10,023 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 139.7 ppb
+2026-11-02 19:21:11,550 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 143.8 ppb
+2026-11-02 19:21:12,313 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 136.0 ppb
+2026-11-02 19:21:13,077 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 158.2 ppb
+2026-11-02 19:21:13,840 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 127.4 ppb
+2026-11-02 19:21:14,606 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 127.8 ppb
+2026-11-02 19:21:15,371 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 170.5 ppb
+2026-11-02 19:21:16,902 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 149.4 ppb
+2026-11-02 19:21:17,669 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 140.1 ppb
+2026-11-02 19:21:18,435 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 150.2 ppb
+2026-11-02 19:21:33,111 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 138.4 ppb
+2026-11-02 19:21:33,875 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 153.9 ppb
+2026-11-02 19:21:34,638 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 151.2 ppb
+2026-11-02 19:21:35,402 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 144.8 ppb
+2026-11-02 19:21:36,166 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 197.8 ppb
+2026-11-02 19:21:36,930 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 123.1 ppb
+2026-11-02 19:21:37,727 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 167.1 ppb
+2026-11-02 19:21:38,491 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 139.5 ppb
+2026-11-02 19:21:39,257 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 173.8 ppb
+2026-11-02 19:21:40,020 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 162.8 ppb
+2026-11-02 19:21:40,783 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 129.2 ppb
+2026-11-02 19:21:41,547 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 198.6 ppb
+2026-11-02 19:21:43,081 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 127.0 ppb
+2026-11-02 19:21:44,611 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 132.1 ppb
+2026-11-02 19:21:45,379 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 122.0 ppb
+2026-11-02 19:21:46,909 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 121.0 ppb
+2026-11-02 19:21:47,673 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 183.4 ppb
+2026-11-02 19:21:48,438 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 175.9 ppb
+2026-11-02 19:21:49,202 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 120.7 ppb
+2026-11-02 19:21:49,966 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 152.0 ppb
+2026-11-02 19:21:50,730 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 144.7 ppb
+2026-11-02 19:21:51,494 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 158.9 ppb
+2026-11-02 19:21:53,022 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 189.6 ppb
+2026-11-02 19:21:53,787 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 197.8 ppb
+2026-11-02 19:21:54,606 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 143.2 ppb
+2026-11-02 19:21:55,376 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 146.3 ppb
+2026-11-02 19:21:56,142 [WARNING] [ALARM STAGE] Elevated VOC detected at PID-PERIMETER-NW: 153.3 ppb
+2026-11-02 19:22:48,237 [INFO] Topic drain window exceeded. No new data streams observed for 30s.
+2026-11-02 19:22:48,237 [INFO] Ecosystem indicates data catch-up phase complete.
+2026-11-02 19:22:48,237 [INFO] Draining phase finished. Total payload entries ingested and relationalized: 960
+2026-11-02 19:22:48,284 [INFO] Ecosystem clean shutdown verified. Runner workspace offline.
