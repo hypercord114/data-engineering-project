@@ -3324,3 +3324,16 @@
 2026-11-12 17:27:33,326 [INFO] All 120 telemetry intervals successfully calculated and buffered.
 2026-11-12 17:27:33,326 [INFO] Flushing full historical payload burst to Aiven cloud broker...
 2026-11-12 17:27:33,469 [INFO] Data injection phase complete. Producer context offline.
+2026-11-13 17:01:41,827 [INFO] Connecting to a secure cloud-managed Aiven Kafka instance...
+2026-11-13 17:01:51,877 [ERROR] Failed to fetch downwind target zone via API. Falling back to default baseline: HTTPSConnectionPool(host='api.open-meteo.com', port=443): Read timed out. (read timeout=10)
+2026-11-13 17:01:51,878 [INFO] Simulating telemetry window: 10:01:51 to 12:01:51
+2026-11-13 17:01:51,879 [INFO] --- [PLUME TRANSIENT INTERCEPT] Vapor breakthrough simulated heading downwind towards NE ---
+2026-11-13 17:01:51,881 [INFO] --- [PLUME TRANSIENT RESOLVED] Vapor concentrations returned to environmental baseline. ---
+2026-11-13 17:01:51,882 [INFO] --- [PLUME TRANSIENT INTERCEPT] Vapor breakthrough simulated heading downwind towards NE ---
+2026-11-13 17:01:51,884 [INFO] --- [PLUME TRANSIENT RESOLVED] Vapor concentrations returned to environmental baseline. ---
+2026-11-13 17:01:51,885 [INFO] --- [PLUME TRANSIENT INTERCEPT] Vapor breakthrough simulated heading downwind towards NE ---
+2026-11-13 17:01:51,887 [INFO] --- [PLUME TRANSIENT RESOLVED] Vapor concentrations returned to environmental baseline. ---
+2026-11-13 17:01:51,888 [INFO] --- [PLUME TRANSIENT INTERCEPT] Vapor breakthrough simulated heading downwind towards NE ---
+2026-11-13 17:01:51,889 [INFO] All 120 telemetry intervals successfully calculated and buffered.
+2026-11-13 17:01:51,889 [INFO] Flushing full historical payload burst to Aiven cloud broker...
+2026-11-13 17:01:53,502 [INFO] Data injection phase complete. Producer context offline.
